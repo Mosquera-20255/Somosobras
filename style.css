@@ -12,22 +12,17 @@
     --glow-amarillo: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
-/* =========================================
-   ESTILOS BASE (Formulario, Inicio, Éxito)
-   ========================================= */
+/* --- ESTILOS BASE (Móvil First / General) --- */
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     background-color: var(--color-fondo-principal);
     background-image: radial-gradient(circle at center, #2c2c2c 0%, #111111 100%);
     color: var(--color-texto-blanco);
-    
-    /* COMPORTAMIENTO NORMAL (CON SCROLL) */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    overflow-y: auto; /* Permite scroll si el formulario es largo */
 }
 
 .container-flex {
@@ -35,13 +30,13 @@ body {
     justify-content: center;
     align-items: center;
     flex: 1; 
-    padding: 30px 20px; /* Padding generoso para no pegar bordes */
+    padding: 30px 20px;
     box-sizing: border-box;
     position: relative;
     z-index: 10;
 }
 
-/* TARJETA ESTÁNDAR */
+/* Tarjeta General */
 .card-industrial {
     background-color: var(--color-fondo-tarjeta);
     border-radius: 12px;
@@ -55,30 +50,16 @@ body {
     animation: fadeInUp 1s ease-out backwards;
     backdrop-filter: blur(10px);
     box-sizing: border-box;
-    /* Margen automático para centrado en pantallas grandes */
     margin: 20px 0; 
 }
 
-/* Elementos Estándar */
-.icono-evento-img {
-    width: 140px; height: auto; margin-bottom: 25px;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
-}
-.titulo-principal {
-    font-family: 'Orbitron', sans-serif; color: var(--color-acento-amarillo);
-    font-size: 2.5rem; text-transform: uppercase; margin-bottom: 15px;
-    text-shadow: var(--glow-amarillo); line-height: 1.1;
-}
-.subtitulo-evento {
-    font-weight: 700; font-size: 1.2rem; color: var(--color-texto-blanco); margin-bottom: 10px;
-}
-.detalles-evento {
-    color: var(--color-texto-gris-claro); font-size: 1rem;
-    margin-bottom: 25px; padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-}
+/* Elementos Comunes */
+.icono-evento-img { width: 140px; height: auto; margin-bottom: 25px; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)); }
+.titulo-principal { font-family: 'Orbitron', sans-serif; color: var(--color-acento-amarillo); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 15px; text-shadow: var(--glow-amarillo); line-height: 1.1; }
+.subtitulo-evento { font-weight: 700; font-size: 1.2rem; color: var(--color-texto-blanco); margin-bottom: 10px; }
+.detalles-evento { color: var(--color-texto-gris-claro); font-size: 1rem; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 215, 0, 0.3); }
 
-/* Formulario */
+/* Formulario & Botones */
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left; width: 100%; }
 .full-width { grid-column: 1 / -1; }
 .form-group label { display: block; color: var(--color-acento-amarillo); margin-bottom: 10px; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; }
@@ -86,7 +67,6 @@ body {
 .form-group select option { background: #333; color: #fff; }
 input:focus, select:focus { outline: none !important; border-color: var(--color-acento-amarillo) !important; background-color: rgba(255, 215, 0, 0.05); box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
 
-/* Botones */
 .btn-industrial { display: flex; justify-content: center; align-items: center; width: 100%; padding: 18px; margin-top: 10px; border: none; border-radius: 50px; background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0); color: #fff; font-family: 'Orbitron'; font-size: 1.2rem; font-weight: bold; text-decoration: none; cursor: pointer; transition: 0.4s; box-shadow: 0 5px 20px rgba(122, 49, 138, 0.6); box-sizing: border-box; }
 .btn-industrial:hover { background: linear-gradient(135deg, var(--color-acento-amarillo), #ffd700); color: #222; transform: translateY(-4px); box-shadow: 0 10px 30px rgba(255, 215, 0, 0.7); }
 .checkbox-group { display: flex; align-items: center; gap: 12px; background: rgba(122, 49, 138, 0.1); padding: 15px; border-radius: 6px; }
@@ -104,71 +84,94 @@ input:focus, select:focus { outline: none !important; border-color: var(--color-
 
 
 /* =========================================================
-   MODO ESPECIAL QR (SOLO SE ACTIVA CON LA CLASE .qr-mode)
+   MODO ESPECIAL QR (PC/Proyección - Sin Scroll y Centrado)
    ========================================================= */
 
-/* 1. Bloqueo de Scroll en PC para Modo QR */
+/* 1. Bloqueo de estructura general */
 body.qr-mode {
     height: 100vh;
-    overflow: hidden; /* Fijo en PC */
+    width: 100vw;
+    overflow: hidden; /* Adiós scrollbars */
+    display: flex;
+    flex-direction: column;
 }
 
-/* 2. Ajustes de la tarjeta en Modo QR */
+/* 2. Contenedor Central Flex */
 body.qr-mode .container-flex {
-    padding: 0; /* Sin padding externo en PC */
+    flex: 1; /* Ocupa todo el espacio menos el footer */
+    padding: 0;
+    display: flex;
+    align-items: center; /* Centrado vertical estricto */
+    justify-content: center; /* Centrado horizontal estricto */
+    overflow: hidden;
 }
 
+/* 3. Tarjeta QR Ajustada */
 body.qr-mode .qr-card {
-    height: 85vh; /* Ocupa el 85% de la altura de la pantalla */
-    max-width: 90vh; /* Se mantiene proporcional cuadrada */
+    /* La tarjeta se ajusta al contenido, no al revés */
+    width: auto;
+    height: auto;
+    max-height: 85vh; /* Límite de altura para no chocar con footer */
+    padding: 2vh 4vw; /* Padding dinámico */
+    margin: 0;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2vh; /* Padding dinámico */
-    margin: 0;
 }
 
-/* 3. Textos y Elementos dinámicos (Usando VH) */
+/* 4. Elementos Internos Dinámicos (Clave para que no se corten) */
 body.qr-mode .icono-evento-img {
     height: 8vh; width: auto; margin-bottom: 1vh;
 }
 body.qr-mode .titulo-principal {
-    font-size: 5vh; margin-bottom: 0;
+    font-size: 4.5vh; margin-bottom: 0; line-height: 1.2;
 }
 body.qr-mode .subtitulo-evento {
-    font-size: 2.5vh; margin-bottom: 2vh;
+    font-size: 2vh; margin-bottom: 2vh;
 }
 body.qr-mode .detalles-evento {
-    margin-top: 2vh; padding-top: 1vh; font-size: 2vh;
+    margin-top: 2vh; padding-top: 1vh; font-size: 1.8vh; border: none;
 }
 body.qr-mode .loading-dots {
     font-size: 1.5vh !important;
 }
 
-/* 4. Contenedor del QR dinámico */
+/* 5. EL CONTENEDOR DEL CÓDIGO QR (Cuadrado Perfecto) */
 body.qr-mode .qr-scanner-container {
-    width: 35vh; /* Cuadrado basado en altura */
-    height: 35vh;
+    /* Tamaño basado en ALTURA de pantalla (vh) para que nunca se salga */
+    height: 38vh; 
+    width: 38vh; 
     margin: 0 auto;
-    padding: 10px; /* Borde interno fijo */
+    padding: 10px;
+    
+    /* Estilos fijos */
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    border: 3px solid var(--color-institucional-morado);
+    box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
+    overflow: hidden;
 }
 
-/* 5. Footer dinámico en Modo QR */
+/* 6. Footer Fijo al fondo */
 body.qr-mode .footer-tic {
-    padding: 1vh;
-    position: absolute;
-    bottom: 0;
+    flex-shrink: 0; /* No dejes que el footer se aplaste */
+    padding: 1.5vh 1rem;
+    position: relative;
     background: rgba(0,0,0,0.8);
+    border-top: 1px solid rgba(122, 49, 138, 0.3);
 }
-body.qr-mode .tic-logo-img { height: 4vh; }
+body.qr-mode .footer-content { flex-direction: row; gap: 30px; }
+body.qr-mode .tic-logo-img { height: 5vh; }
+body.qr-mode .tic-info-container { text-align: left; }
 body.qr-mode .tic-dept { font-size: 1.5vh; }
-body.qr-mode .dev-name { font-size: 1.5vh; }
-body.qr-mode .footer-content { flex-direction: row; gap: 20px; } /* Horizontal en proyección */
+body.qr-mode .dev-name { font-size: 1.6vh; }
 
 
 /* =========================================
-   ANIMACIONES Y EXTRAS
+   ANIMACIONES
    ========================================= */
 /* Animación Contracción QR */
 .qr-contracting { animation: contract-generate 2.5s ease-in-out forwards; }
@@ -195,34 +198,27 @@ body.qr-mode .footer-content { flex-direction: row; gap: 20px; } /* Horizontal e
    MEDIA QUERIES: MÓVIL (Anula el modo QR fijo)
    ========================================================= */
 @media screen and (max-width: 768px) {
-    /* Resetear body incluso en qr-mode */
-    body.qr-mode { height: auto; overflow-y: auto; }
+    /* En móvil, quitamos todas las reglas fijas */
+    body.qr-mode { height: auto; overflow-y: auto; display: block; }
     
-    /* Resetear tarjeta QR a comportamiento normal */
+    body.qr-mode .container-flex { display: flex; padding: 30px 20px; height: auto; overflow: visible; }
+    
     body.qr-mode .qr-card {
-        height: auto;
-        max-width: 100%;
-        padding: 2rem 1rem;
-        margin: 20px 0;
+        height: auto; max-height: none; width: 100%; max-width: 100%;
+        padding: 2rem 1rem; margin: 20px 0;
     }
     
-    /* Resetear tamaños dinámicos a fijos legibles */
+    /* Restaurar tamaños fijos (px/rem) para legibilidad en móvil */
+    body.qr-mode .icono-evento-img { width: 100px; height: auto; }
     body.qr-mode .titulo-principal { font-size: 1.8rem; }
     body.qr-mode .subtitulo-evento { font-size: 1rem; }
-    body.qr-mode .detalles-evento { font-size: 0.9rem; }
-    body.qr-mode .icono-evento-img { width: 100px; height: auto; }
+    body.qr-mode .detalles-evento { font-size: 0.9rem; margin-top: 15px; }
     
-    /* QR tamaño fijo en móvil */
-    body.qr-mode .qr-scanner-container { width: 260px; height: 260px; }
+    /* QR tamaño fijo cómodo en celular */
+    body.qr-mode .qr-scanner-container { width: 260px; height: 260px; margin: 20px auto; }
     
-    /* Footer normal */
-    body.qr-mode .footer-tic { position: relative; padding: 2rem 1rem; }
-    body.qr-mode .footer-content { flex-direction: column; }
+    body.qr-mode .footer-tic { position: relative; padding: 2rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
+    body.qr-mode .footer-content { flex-direction: column; gap: 10px; }
     body.qr-mode .tic-logo-img { height: 60px; }
     body.qr-mode .tic-dept, body.qr-mode .dev-name { font-size: 0.9rem; }
-    
-    /* Ajustes generales */
-    .titulo-principal { font-size: 1.8rem; }
-    .card-industrial { padding: 1.5rem; }
-    .form-grid { grid-template-columns: 1fr; }
 }
