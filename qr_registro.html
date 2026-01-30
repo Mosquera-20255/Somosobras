@@ -7,44 +7,44 @@
     <link rel="icon" href="favicon_obras.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    
-    <div class="container-flex">
+<body class="qr-mode"> <div class="container-flex">
         <div class="card-industrial qr-card">
-            <img src="icono-obras.png" alt="Logo Obras" class="icono-evento-img" style="width: 130px;">
+            <img src="icono-obras.png" alt="Logo Obras" class="icono-evento-img">
             
-            <h1 class="titulo-principal" style="font-size: 2.8rem; margin-bottom: 5px;">MOSQUERA CONECTA</h1>
-            <p class="subtitulo-evento" style="color: var(--color-acento-amarillo); letter-spacing: 3px; font-size: 1.4rem;">CAMPO DE GIGANTES</p>
+            <h1 class="titulo-principal">MOSQUERA CONECTA</h1>
+            <p class="subtitulo-evento" style="color: var(--color-acento-amarillo);">CAMPO DE GIGANTES</p>
             
             <div class="qr-scanner-container">
-                <div class="scan-line"></div>
+                <canvas id="noise-canvas"></canvas>
+                
+                <div class="scan-mask" id="scan-mask"></div>
+                
+                <div class="laser-beam" id="laser-beam"></div>
+
                 <img id="qr-target" 
                      src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&color=000000&bgcolor=FFFFFF&data=https://mosquera-20255.github.io/Somosobras/index.html" 
                      alt="Código QR de Registro" 
                      class="qr-image">
             </div>
 
-            <div class="detalles-evento" style="border-bottom: none; margin-top: 30px;">
-                <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 10px;">¡ESCANEA Y REGÍSTRATE!</p>
-                <p style="font-size: 1.1rem; color: var(--color-texto-blanco); opacity: 0.9;">
-                    Presentación y Firma de Convenios de Infraestructura
-                </p>
-                <div style="margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px;">
-                    <span class="loading-dots" style="color: var(--color-acento-amarillo); font-size: 0.8rem; letter-spacing: 1px;">CÓDIGO DINÁMICO ACTIVO</span>
+            <div class="detalles-evento" style="border-bottom: none; margin-top: 15px;">
+                <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 5px;">¡ESCANEA Y REGÍSTRATE!</p>
+                <p style="font-size: 1rem; opacity: 0.9;">Firma de Convenios de Infraestructura</p>
+                
+                <div style="margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                    <span id="status-dot" style="width: 8px; height: 8px; background: #0f0; border-radius: 50%; box-shadow: 0 0 5px #0f0;"></span>
+                    <span id="status-text" style="color: var(--color-acento-amarillo); font-size: 0.8rem; letter-spacing: 1px;">SISTEMA ACTIVO</span>
                 </div>
             </div>
         </div>
     </div>
 
     <footer class="footer-tic">
-        <div class="footer-content">
-            <img src="LOGOTIC.PNG" alt="Logo Dirección TIC" class="tic-logo-img">
-            <div class="tic-info-container">
-                <p class="tic-dept">Dirección de TIC</p>
-                <p class="dev-name">Wilson David Saa Aldana</p>
-                <div class="badge-container">
-                    <span class="cps-badge">CPS-049-2026</span>
-                </div>
+        <div class="footer-content" style="flex-direction: row; justify-content: center; gap: 20px;">
+            <img src="LOGOTIC.PNG" alt="Logo TIC" style="height: 40px;">
+            <div class="tic-info-container" style="text-align: left;">
+                <p class="tic-dept" style="font-size: 0.8rem;">Dirección de TIC</p>
+                <p class="dev-name" style="font-size: 0.9rem;">Wilson David Saa Aldana - CPS-049-2026</p>
             </div>
         </div>
     </footer>
