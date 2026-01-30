@@ -12,25 +12,6 @@
     --glow-amarillo: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
-/* --- Animaciones Generales --- */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translate3d(0, 40px, 0); }
-    to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-@keyframes pulse-border-tech {
-    0% { box-shadow: 0 0 0 0 rgba(122, 49, 138, 0.4), var(--glow-morado); border-color: var(--color-institucional-morado); }
-    50% { box-shadow: 0 0 0 8px rgba(255, 215, 0, 0), 0 0 25px rgba(255, 215, 0, 0.6), 0 0 40px rgba(122, 49, 138, 0.4); border-color: var(--color-acento-amarillo); }
-    100% { box-shadow: 0 0 0 0 rgba(122, 49, 138, 0.4), var(--glow-morado); border-color: var(--color-institucional-morado); }
-}
-
-@keyframes scanline {
-    0% { left: -50%; opacity: 0; }
-    20% { opacity: 1; }
-    50% { left: 100%; opacity: 0; }
-    100% { left: 100%; opacity: 0; }
-}
-
 /* --- Estilos Generales --- */
 body {
     margin: 0;
@@ -44,11 +25,17 @@ body {
     overflow-x: hidden;
 }
 
+/* CLASE ESPECIAL PARA PÁGINA QR (SIN SCROLL EN PC) */
+body.qr-mode {
+    overflow: hidden; /* Fija la pantalla */
+    height: 100vh;
+}
+
 .container-flex {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1;
+    flex: 1; /* Ocupa todo el espacio disponible */
     padding: 20px;
     box-sizing: border-box;
     position: relative;
@@ -66,227 +53,138 @@ body {
     position: relative;
     border: 2px solid var(--color-institucional-morado);
     box-shadow: var(--glow-morado);
-    animation: fadeInUp 1s ease-out backwards, pulse-border-tech 4s infinite ease-in-out;
+    animation: fadeInUp 1s ease-out backwards;
     backdrop-filter: blur(10px);
     box-sizing: border-box;
 }
 
-.icono-evento-img {
-    width: 140px;
-    height: auto;
-    margin-bottom: 25px;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
-    transition: transform 0.3s ease;
+/* --- Ajustes específicos para QR en Pantalla Completa --- */
+.qr-card {
+    max-width: 90vh; /* Se adapta a la altura de la pantalla */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-.icono-evento-img:hover { transform: scale(1.05); }
+
+.icono-evento-img {
+    width: 120px; /* Un poco más pequeño para ahorrar espacio */
+    height: auto;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
 
 .titulo-principal {
     font-family: 'Orbitron', sans-serif;
     color: var(--color-acento-amarillo);
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     text-shadow: var(--glow-amarillo);
-    line-height: 1.1;
+    line-height: 1;
 }
 
 .subtitulo-evento {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--color-texto-blanco);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
 }
 
 .detalles-evento {
     color: var(--color-texto-gris-claro);
     font-size: 1rem;
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
 }
 
-/* --- Formulario --- */
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    text-align: left;
-    width: 100%; /* Asegura ancho completo */
-}
-.full-width { grid-column: 1 / -1; }
-
-.form-group label {
-    display: block;
-    color: var(--color-acento-amarillo);
-    margin-bottom: 10px;
-    font-weight: 700;
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 14px;
-    border-radius: 6px;
-    border: 2px solid rgba(122, 49, 138, 0.5);
-    background-color: rgba(255, 255, 255, 0.07);
-    font-size: 1rem;
-    color: var(--color-texto-blanco);
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-.form-group select option { background: #333; color: #fff; }
-input:focus, select:focus {
-    outline: none !important;
-    border-color: var(--color-acento-amarillo) !important;
-    background-color: rgba(255, 215, 0, 0.05);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-}
-
-/* --- Botón Responsive --- */
-.btn-industrial {
-    display: flex; /* Flexbox para centrar contenido */
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 18px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 50px;
-    background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0);
-    color: var(--color-texto-blanco);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.4s ease;
-    box-shadow: 0 5px 20px rgba(122, 49, 138, 0.6);
-    text-decoration: none;
-    box-sizing: border-box;
-    text-align: center;
-}
-.btn-industrial:hover {
-    background: linear-gradient(135deg, var(--color-acento-amarillo), #ffd700);
-    color: #222;
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.7);
-}
-
-.checkbox-group {
-    display: flex; align-items: center; gap: 12px;
-    background-color: rgba(122, 49, 138, 0.1);
-    padding: 15px; border-radius: 6px; border: 1px solid rgba(122, 49, 138, 0.4);
-}
-.checkbox-group input { width: 20px; height: 20px; accent-color: var(--color-acento-amarillo); flex-shrink: 0; }
-.terms-label a { color: var(--color-acento-amarillo); }
-
-/* --- Footer TIC --- */
-.footer-tic {
-    width: 100%;
-    padding: 2rem 1rem;
-    margin-top: auto;
-    text-align: center;
-    position: relative;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    border-top: 1px solid rgba(122, 49, 138, 0.3);
-    z-index: 10;
-}
-.footer-tic::before {
-    content: ''; position: absolute; top: 0; left: -50%; width: 50%; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--color-acento-amarillo), transparent);
-    animation: scanline 6s infinite ease-in-out; opacity: 0.8;
-}
-.footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; animation: fadeInUp 1.2s ease-out; }
-.tic-logo-img { height: 60px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)); }
-.tic-dept { font-family: 'Orbitron', sans-serif; color: var(--color-texto-gris-claro); font-size: 0.9rem; letter-spacing: 1px; margin: 0; }
-.dev-name { font-family: 'Montserrat', sans-serif; color: var(--color-texto-blanco); font-weight: 700; margin: 0; font-size: 1rem; }
-.cps-badge {
-    display: inline-block; background-color: rgba(122, 49, 138, 0.2); border: 1px solid var(--color-institucional-morado);
-    color: var(--color-acento-amarillo); padding: 4px 12px; border-radius: 4px; font-family: 'Orbitron', sans-serif;
-    font-size: 0.75rem; letter-spacing: 1.5px; margin-top: 5px;
-}
-
-/* =========================================
-   ESTILOS ESPECÍFICOS PARA LA PÁGINA QR
-   ========================================= */
-.qr-card { max-width: 600px; padding: 3rem; }
-
-/* Contenedor Holográfico */
+/* --- Contenedor QR y Animación de Impresión --- */
 .qr-scanner-container {
     position: relative;
-    width: 320px;
-    height: 320px;
-    margin: 20px auto;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.3);
+    width: 300px;
+    height: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 12px;
     border: 3px solid var(--color-institucional-morado);
     box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
     overflow: hidden;
-    /* Cuadrícula Holográfica de fondo */
-    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
+}
+
+/* Canvas de Ruido (Capa de destrucción) */
+#noise-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 3;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+/* Capa de Máscara (Efecto de impresión láser) */
+.scan-mask {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000; /* Color que tapa el QR */
+    z-index: 2;
+    transform-origin: top;
+    transform: scaleY(0); /* Empieza invisible (QR visible) */
+}
+
+/* La línea láser verde/amarilla */
+.laser-beam {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #0f0; /* Color láser */
+    box-shadow: 0 0 15px #0f0, 0 0 30px #0f0;
+    z-index: 4;
+    display: none; /* Se activa con JS */
 }
 
 .qr-image {
-    width: 100%; height: 100%; object-fit: contain;
-    border-radius: 8px; 
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
-    transition: all 0.3s ease;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    z-index: 1;
+    display: block;
 }
 
-/* --- ANIMACIÓN: CONTRACT & GENERATE --- */
-.qr-contracting {
-    animation: contract-generate 2.5s ease-in-out forwards;
+/* --- Footer Fijo Compacto --- */
+.footer-tic {
+    width: 100%;
+    padding: 1rem; /* Más compacto */
+    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+    border-top: 1px solid rgba(122, 49, 138, 0.3);
+    z-index: 10;
+    position: relative; /* O absolute bottom: 0 si queremos forzar */
 }
 
-@keyframes contract-generate {
-    0% { transform: scale(1); filter: brightness(1); opacity: 1; }
-    20% { 
-        transform: scaleY(0.01) scaleX(1.1); 
-        filter: brightness(3) drop-shadow(0 0 20px var(--color-acento-amarillo)); opacity: 0.8; 
-    }
-    40% { transform: scale(0); opacity: 0; }
-    60% { 
-        transform: scaleX(0.01) scaleY(1.1); 
-        filter: brightness(3) drop-shadow(0 0 20px var(--color-institucional-morado)); opacity: 0.8; 
-    }
-    100% { transform: scale(1); filter: brightness(1); opacity: 1; }
-}
+/* --- Otros Estilos (Formulario, Botones) --- */
+.form-grid { display: grid; gap: 20px; text-align: left; width: 100%; }
+.full-width { grid-column: 1 / -1; }
+.form-group label { display: block; color: var(--color-acento-amarillo); margin-bottom: 8px; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; }
+.form-group input, .form-group select { width: 100%; padding: 12px; border-radius: 6px; border: 2px solid rgba(122, 49, 138, 0.5); background: rgba(255,255,255,0.07); color: #fff; box-sizing: border-box; }
+.btn-industrial { display: block; width: 100%; padding: 15px; border: none; border-radius: 50px; background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0); color: #fff; font-family: 'Orbitron'; font-weight: bold; text-align: center; text-decoration: none; box-sizing: border-box; cursor: pointer; }
+.checkbox-group { display: flex; align-items: center; gap: 10px; background: rgba(122,49,138,0.1); padding: 10px; border-radius: 6px; }
 
-.scan-line {
-    position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-    background: var(--color-acento-amarillo);
-    box-shadow: 0 0 15px var(--color-acento-amarillo);
-    animation: scanner-move 3s ease-in-out infinite; z-index: 5;
-    opacity: 0.6;
-}
-@keyframes scanner-move {
-    0%, 100% { top: 10%; opacity: 0; }
-    10% { opacity: 1; }
-    50% { top: 90%; }
-    90% { opacity: 1; }
-}
-
-/* --- FONDO POLÍGONOS --- */
+/* Polígonos */
 #polygons-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
-.polygon-shape {
-    position: absolute; bottom: -100px;
-    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15);
-    animation: floatAndRotate linear infinite; backdrop-filter: blur(1px);
-}
-@keyframes floatAndRotate {
-    0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
-    10% { opacity: 0.6; } 90% { opacity: 0.6; }
-    100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; }
-}
+.polygon-shape { position: absolute; bottom: -100px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); animation: floatAndRotate linear infinite; }
+@keyframes floatAndRotate { 0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Responsive */
+/* --- Responsive para Celulares --- */
 @media screen and (max-width: 768px) {
-    .titulo-principal { font-size: 1.8rem; }
-    .card-industrial { padding: 1.5rem; }
-    .qr-card { padding: 1.5rem; width: 100%; } 
+    body.qr-mode { overflow: auto; height: auto; } /* Permitir scroll en móvil */
+    .qr-card { max-width: 100%; padding: 1.5rem; height: auto; }
     .qr-scanner-container { width: 260px; height: 260px; }
-    .form-grid { grid-template-columns: 1fr; } /* Asegura columna única en móvil */
+    .titulo-principal { font-size: 1.8rem; }
 }
