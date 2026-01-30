@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. FONDO DE POLÍGONOS (Sin cambios, funciona perfecto)
+    // 1. POLÍGONOS (Sin cambios)
     const createPolygons = () => {
         const containerId = 'polygons-container';
         let polygonContainer = document.getElementById(containerId);
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createPolygons();
 
     // =========================================================
-    // 2. NUEVA ANIMACIÓN DE RECONSTRUCCIÓN LÁSER (QR)
+    // 2. ANIMACIÓN QR (CORREGIDA: ARRIBA -> ABAJO)
     // =========================================================
     const qrImageElement = document.getElementById('qr-target');
     const noiseCanvas = document.getElementById('noise-canvas');
@@ -49,21 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = noiseCanvas.getContext('2d');
         let noiseInterval;
 
-        // Función para generar ruido digital (Nieve de TV)
         const generateNoise = () => {
             const w = noiseCanvas.width = noiseCanvas.offsetWidth;
             const h = noiseCanvas.height = noiseCanvas.offsetHeight;
             const idata = ctx.createImageData(w, h);
             const buffer32 = new Uint32Array(idata.data.buffer);
             const len = buffer32.length;
-
             noiseInterval = setInterval(() => {
                 for (let i = 0; i < len; i++) {
-                    if (Math.random() < 0.5) {
-                        buffer32[i] = 0xff000000; // Negro
-                    } else {
-                        buffer32[i] = 0xffffffff; // Blanco (o verde matrix si prefieres)
-                    }
+                    buffer32[i] = Math.random() < 0.5 ? 0xff000000 : 0xffffffff;
                 }
                 ctx.putImageData(idata, 0, 0);
             }, 50);
@@ -75,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const runLaserPrintEffect = () => {
-            // FASE 1: DESTRUCCIÓN (RUIDO)
+            // 1. INICIO: Texto rojo y ruido
             statusText.textContent = "ACTUALIZANDO CÓDIGO...";
             statusText.style.color = "red";
             statusDot.style.background = "red";
@@ -83,58 +77,54 @@ document.addEventListener('DOMContentLoaded', () => {
             noiseCanvas.style.opacity = "1";
             generateNoise();
 
-            // FASE 2: BORRADO TOTAL (Pantalla negra baja)
+            // 2. TAPAR EL QR: La máscara baja rápido
             setTimeout(() => {
                 scanMask.style.transition = "transform 0.5s ease-in";
-                scanMask.style.transform = "scaleY(1)"; // Baja la cortina negra
+                scanMask.style.transform = "scaleY(1)"; // Cubre todo (negro)
             }, 1000);
 
-            // FASE 3: PREPARAR IMPRESIÓN
+            // 3. PREPARAR LÁSER (Posicionarlo ARRIBA)
             setTimeout(() => {
-                stopNoise(); // Quitamos el ruido (ya está tapado por la máscara negra)
+                stopNoise(); 
                 noiseCanvas.style.opacity = "0"; 
                 
-                // Activar láser
                 laserBeam.style.display = "block";
-                laserBeam.style.top = "0%";
+                laserBeam.style.top = "0%"; // Láser empieza arriba
+                laserBeam.style.transition = "none"; // Sin animación para resetear posición
                 
                 statusText.textContent = "GENERANDO...";
-                statusText.style.color = "#FFD700"; // Amarillo
+                statusText.style.color = "#FFD700";
                 statusDot.style.background = "#FFD700";
             }, 1600);
 
-            // FASE 4: IMPRESIÓN LÁSER (Sube la cortina revelando el QR)
+            // 4. ACCIÓN: Láser baja y máscara se reduce (revelando desde ARRIBA)
             setTimeout(() => {
-                // Animamos el láser bajando
+                // Láser baja lentamente
                 laserBeam.style.transition = "top 2s linear";
-                laserBeam.style.top = "100%";
+                laserBeam.style.top = "100%"; 
                 
-                // La máscara se va revelando al ritmo del láser
+                // La máscara se reduce hacia abajo (su origen es bottom, así que el tope baja)
                 scanMask.style.transition = "transform 2s linear";
-                scanMask.style.transform = "scaleY(0)"; // Sube la cortina
+                scanMask.style.transform = "scaleY(0)"; 
             }, 1800);
 
-            // FASE 5: FINALIZAR
+            // 5. FIN
             setTimeout(() => {
                 laserBeam.style.display = "none";
                 statusText.textContent = "SISTEMA ACTIVO";
-                statusText.style.color = "#4cd137"; // Verde
+                statusText.style.color = "#4cd137";
                 statusDot.style.background = "#4cd137";
                 statusDot.style.boxShadow = "0 0 10px #4cd137";
             }, 3800);
         };
 
-        // Ejecutar cada 60 segundos
         setInterval(runLaserPrintEffect, 60000);
-        
-        // Ejecutar al cargar para probar
         setTimeout(runLaserPrintEffect, 2000);
     }
 
-    // 3. LÓGICA DEL FORMULARIO (Se mantiene igual)
+    // 3. FORMULARIO (Sin cambios)
     const form = document.getElementById('registroForm');
     if (form) {
-        // ... (Tu código de formulario existente va aquí, copia y pega lo que tenías antes) ...
         const tipoOrigenSelect = document.getElementById('tipo_origen');
         const grupoJac = document.getElementById('grupo-jac');
         const selectJac = document.getElementById('seleccion_jac');
