@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.prepend(polygonContainer);
         }
 
-        const polygonCount = 25;
+        const polygonCount = 25; 
         const colors = [
-            'rgba(122, 49, 138, 0.4)',
-            'rgba(255, 215, 0, 0.4)',
-            'rgba(255, 255, 255, 0.2)'
+            'rgba(122, 49, 138, 0.4)', 
+            'rgba(255, 215, 0, 0.4)',  
+            'rgba(255, 255, 255, 0.2)' 
         ];
         const shapes = [
             'polygon(50% 0%, 100% 100%, 0% 100%)', // Triángulo
@@ -29,20 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < polygonCount; i++) {
             const polygon = document.createElement('div');
             polygon.classList.add('polygon-shape');
-
+            
             const size = Math.random() * 40 + 20;
             const color = colors[Math.floor(Math.random() * colors.length)];
             const shape = shapes[Math.floor(Math.random() * shapes.length)];
             const left = Math.random() * 100;
             const duration = Math.random() * 20 + 15;
             const delay = Math.random() * 20;
-
+            
             polygon.style.width = `${size}px`;
             polygon.style.height = `${size}px`;
             polygon.style.left = `${left}%`;
             polygon.style.borderColor = color;
             polygon.style.clipPath = shape;
-
+            
             if (Math.random() > 0.5) {
                 polygon.style.background = color;
             }
@@ -58,7 +58,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =============================================================
-    // 2. LÓGICA DEL FORMULARIO
+    // 2. LÓGICA DE ANIMACIÓN DEL QR (Solo en la página QR)
+    // =============================================================
+    const qrImageElement = document.getElementById('qr-target');
+
+    if (qrImageElement) {
+        // Guardamos la URL original del QR
+        const realQRSource = qrImageElement.src;
+        // GIF de ruido estático para el efecto glitch
+        const noiseSource = 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2Q4bzJzMXV4OG54c3V4OG54c3V4OG54c3V4OG54YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oEI9uB8z0U7lu/giphy.gif';
+
+        const startQRAnimationCycle = () => {
+            // 1. Inicia efecto glitch
+            qrImageElement.classList.add('qr-disassembling');
+
+            // 2. Cambia a ruido
+            setTimeout(() => {
+                qrImageElement.src = noiseSource;
+                qrImageElement.style.opacity = '0.5';
+            }, 1500);
+
+            // 3. Reconstruye QR real
+            setTimeout(() => {
+                qrImageElement.src = realQRSource;
+                qrImageElement.style.opacity = '1';
+            }, 3500);
+
+            // 4. Quita efecto glitch
+            setTimeout(() => {
+                qrImageElement.classList.remove('qr-disassembling');
+            }, 4500);
+        };
+
+        // Repetir cada 60 segundos
+        setInterval(startQRAnimationCycle, 60000);
+    }
+
+
+    // =============================================================
+    // 3. LÓGICA DEL FORMULARIO (registro.html)
     // =============================================================
     const form = document.getElementById('registroForm');
 
@@ -185,9 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            // --- URL ORIGINAL RESTAURADA ---
-            const GOOGLE_SHEET_API_URL = 'https://script.google.com/a/macros/mosquera-cundinamarca.gov.co/s/AKfycbyuz97f4ePF5XwktWIHyI_RIM2CkcRmSQ__d8Yg6O0oweXmkwHdF00o17xFbIG44w2Epw/exec';
+            
+            // URL DEL SCRIPT DE GOOGLE
+            const GOOGLE_SHEET_API_URL = 'https://script.google.com/a/macros/mosquera-cundinamarca.gov.co/s/AKfycbyuz97f4ePF5XwktWIHyI_RIM2CkcRmSQ__d8Yg6O0oweXmkwHdF00o17xFbIG44w2Epw/exec'; 
 
             const originalButtonText = submitButton.textContent;
             submitButton.disabled = true;
@@ -195,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
-
+            
             let lugarRepresentacion = "";
             if (data.tipo_origen === 'JAC') lugarRepresentacion = data.seleccion_jac;
             else if (data.tipo_origen === 'PH') lugarRepresentacion = data.seleccion_ph;
