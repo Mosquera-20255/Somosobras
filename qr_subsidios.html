@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Subsidios - Obras Mosquera</title>
+    <link rel="icon" href="favicon_obras.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="qr-mode"> <div class="container-flex">
+        <div class="card-industrial qr-card">
+            <img src="icono-obras.png" alt="Logo Obras" class="icono-evento-img" style="width: 130px;">
+            
+            <h1 class="titulo-principal" style="font-size: 2.5rem; margin-bottom: 5px;">SUBSIDIOS</h1>
+            <p class="subtitulo-evento" style="color: var(--color-acento-amarillo); letter-spacing: 2px; font-size: 1.2rem;">
+                ACUEDUCTO Y ALCANTARILLADO
+            </p>
+            
+            <div class="qr-scanner-container">
+                <canvas id="noise-canvas"></canvas>
+                
+                <div class="scan-mask" id="scan-mask"></div>
+                
+                <div class="laser-beam" id="laser-beam"></div>
+
+                <img id="qr-target" 
+                     src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&color=000000&bgcolor=FFFFFF&data=https://community.secop.gov.co/Public/Tendering/OpportunityDetail/Index?noticeUID=CO1.NTC.9891040%26isFromPublicArea=True%26isModal=False" 
+                     alt="Código QR SECOP II" 
+                     class="qr-image">
+            </div>
+
+            <div class="detalles-evento" style="border-bottom: none; margin-top: 30px;">
+                <p style="font-size: 1.3rem; font-weight: bold; margin-bottom: 10px;">CONSULTA EL CONTRATO</p>
+                <p style="font-size: 1rem; color: var(--color-texto-blanco); opacity: 0.9;">
+                    Acceso directo al detalle del proceso en la plataforma SECOP II.
+                </p>
+                
+                <div style="margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px;">
+                    <span id="status-dot" style="width: 8px; height: 8px; background: #0f0; border-radius: 50%; box-shadow: 0 0 5px #0f0;"></span>
+                    <span id="status-text" style="color: var(--color-acento-amarillo); font-size: 0.8rem; letter-spacing: 1px;">PROCESO PÚBLICO ACTIVO</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-tic">
+        <div class="footer-content">
+            <img src="LOGOTIC.PNG" alt="Logo Dirección TIC" class="tic-logo-img">
+            <div class="tic-info-container">
+                <p class="tic-dept">Dirección de TIC</p>
+                <p class="dev-name">Wilson David Saa Aldana</p>
+                <div class="badge-container">
+                    <span class="cps-badge">CPS-049-2026</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
