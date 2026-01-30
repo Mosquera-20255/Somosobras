@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. POLÍGONOS DE FONDO
+    // 1. POLÍGONOS
     const createPolygons = () => {
         const containerId = 'polygons-container';
         let polygonContainer = document.getElementById(containerId);
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const left = Math.random() * 100;
             const duration = Math.random() * 20 + 15;
             const delay = Math.random() * 20;
+            
             polygon.style.width = `${size}px`; polygon.style.height = `${size}px`;
             polygon.style.left = `${left}%`; polygon.style.borderColor = color;
             polygon.style.clipPath = shape;
@@ -32,9 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     createPolygons();
 
-    // =========================================================
-    // 2. ANIMACIÓN QR: IMPRESIÓN LÁSER (ARRIBA -> ABAJO)
-    // =========================================================
+    // 2. ANIMACIÓN QR (LASER)
     const qrImageElement = document.getElementById('qr-target');
     const noiseCanvas = document.getElementById('noise-canvas');
     const scanMask = document.getElementById('scan-mask');
@@ -47,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = noiseCanvas.getContext('2d');
         let noiseInterval;
 
-        // Generador de Ruido
         const generateNoise = () => {
             const w = noiseCanvas.width = noiseCanvas.offsetWidth;
             const h = noiseCanvas.height = noiseCanvas.offsetHeight;
@@ -68,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const runLaserPrintEffect = () => {
-            // FASE 1: Destrucción (Ruido)
             statusText.textContent = "ACTUALIZANDO...";
             statusText.style.color = "red";
             statusDot.style.background = "red";
@@ -77,13 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
             noiseCanvas.style.opacity = "1";
             generateNoise();
 
-            // FASE 2: Pantalla Negra baja (Tapa el QR)
-            // Usamos transform-origin: top en el CSS para esto, o lo forzamos aquí
+            // Tapa negra
             scanMask.style.transformOrigin = "top";
             scanMask.style.transition = "transform 0.5s ease-in";
             scanMask.style.transform = "scaleY(1)"; 
 
-            // FASE 3: Preparar Láser (Resetear arriba)
             setTimeout(() => {
                 stopNoise(); 
                 noiseCanvas.style.opacity = "0"; 
@@ -98,21 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusDot.style.boxShadow = "0 0 5px #FFD700";
             }, 1600);
 
-            // FASE 4: Impresión (Láser baja, Máscara se retrae hacia abajo)
             setTimeout(() => {
-                // Láser baja
                 laserBeam.style.transition = "top 2s linear";
                 laserBeam.style.top = "100%"; 
                 
-                // Máscara cambia origen a bottom para bajar el "techo"
-                // Pero como queremos REVELAR de arriba a abajo, necesitamos mover el contenedor o usar clip-path.
-                // Truco simple: Escalar la máscara a 0 con origen bottom hace que baje visualmente el corte.
                 scanMask.style.transformOrigin = "bottom";
                 scanMask.style.transition = "transform 2s linear";
                 scanMask.style.transform = "scaleY(0)"; 
             }, 1800);
 
-            // FASE 5: Fin
             setTimeout(() => {
                 laserBeam.style.display = "none";
                 statusText.textContent = "SISTEMA ACTIVO";
@@ -122,15 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3800);
         };
 
-        setInterval(runLaserPrintEffect, 60000); // 60 segundos
-        setTimeout(runLaserPrintEffect, 2000); // Inicio rápido
+        setInterval(runLaserPrintEffect, 60000);
+        setTimeout(runLaserPrintEffect, 2000);
     }
 
-    // 3. FORMULARIO Y DEMÁS (Código Formulario estándar)
+    // 3. FORMULARIO (Sin cambios)
     const form = document.getElementById('registroForm');
     if (form) {
-        // ... (Tu código de formulario anterior va aquí) ...
-        // Como ya lo tienes en la versión anterior y no cambia, lo resumo para no llenar espacio:
         const tipoOrigenSelect = document.getElementById('tipo_origen');
         const grupoJac = document.getElementById('grupo-jac');
         const selectJac = document.getElementById('seleccion_jac');
