@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro: Presentación de Obras - Mosquera</title>
-    <link rel="icon" href="favicon_obras.ico" type="image/x-icon">
+    <link rel="icon" href="favicon_obras.ico" type="image/x-icon"> 
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
+    
     <div class="container-flex">
         <form class="card-industrial registro-form" id="registroForm">
             <img src="icono-obras.png" alt="Logo Obras Mosquera" class="icono-evento-img" />
-
+            
             <h1 class="titulo-principal">SOMOS OBRAS MOSQUERA</h1>
             <p class="subtitulo-evento">Presentación y firma de convenios de infraestructura</p>
             <div class="detalles-evento">
                 <p>📅 Viernes 30 de Enero | 🕒 4:00 p.m.</p>
                 <p>📍 Auditorio Municipal (Centro Cultural)</p>
             </div>
-
+            
             <div class="form-grid">
                 <div class="form-group">
                     <label for="nombres">Nombres</label>
                     <input type="text" id="nombres" name="nombres" required />
                 </div>
-
+                
                 <div class="form-group">
                     <label for="apellidos">Apellidos</label>
                     <input type="text" id="apellidos" name="apellidos" required />
                 </div>
-
+                
                 <div class="form-group">
                     <label for="tipo_documento">Tipo de documento</label>
                     <select id="tipo_documento" name="tipo_documento" required>
@@ -42,7 +40,7 @@
                         <option value="Otro">Otro</option>
                     </select>
                 </div>
-
+                
                 <div class="form-group">
                     <label for="numero_documento">Número de documento</label>
                     <input type="number" id="numero_documento" name="numero_documento" required />
@@ -84,16 +82,14 @@
 
                 <div id="grupo-otro" class="form-group full-width" style="display: none;">
                     <label for="otro_origen">Especifique (Barrio, Entidad o Cargo)</label>
-                    <input type="text" id="otro_origen" name="otro_origen"
-                        placeholder="Ej: Veeduría, Concejo, Barrio específico..." />
+                    <input type="text" id="otro_origen" name="otro_origen" placeholder="Ej: Veeduría, Concejo, Barrio específico..." />
                 </div>
 
                 <div class="form-group full-width checkbox-group terms-group">
                     <input type="checkbox" id="acepta_terminos" name="acepta_terminos" required />
                     <label for="acepta_terminos" class="terms-label">
                         Acepto el tratamiento de datos personales para el registro a este evento institucional.
-                        <a href="https://mosqueracundinamarca.micolombiadigital.gov.co/sites/mosqueracundinamarca/content/files/001850/92459_polpi06--politica-de-tratamiento-de-datos-v1-2.pdf"
-                            target="_blank">Ver política.</a>
+                        <a href="https://mosqueracundinamarca.micolombiadigital.gov.co/sites/mosqueracundinamarca/content/files/001850/92459_polpi06--politica-de-tratamiento-de-datos-v1-2.pdf" target="_blank">Ver política.</a>
                     </label>
                 </div>
 
@@ -117,5 +113,4 @@
 
     <script src="script.js"></script>
 </body>
-
 </html>
