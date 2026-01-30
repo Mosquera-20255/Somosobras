@@ -19,26 +19,21 @@ body {
     background-color: var(--color-fondo-principal);
     background-image: radial-gradient(circle at center, #2c2c2c 0%, #111111 100%);
     color: var(--color-texto-blanco);
-    /* SOLUCIÓN AL CORTE Y SCROLL: */
-    min-height: 100vh; /* Altura mínima de pantalla completa */
+    
+    /* CONFIGURACIÓN CLAVE PARA PC (Pantalla Completa Fija) */
+    height: 100vh; 
+    width: 100vw;
+    overflow: hidden; /* Elimina scroll en PC por defecto */
     display: flex;
     flex-direction: column;
-    overflow-x: hidden; /* Solo evitamos scroll horizontal */
-    overflow-y: auto;   /* Permitimos scroll vertical si no cabe */
-}
-
-/* La clase qr-mode ya no bloquea el scroll, solo asegura altura */
-body.qr-mode {
-    height: auto;
-    min-height: 100vh;
 }
 
 .container-flex {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1; /* Esto empuja el footer hacia abajo si hay espacio */
-    padding: 40px 20px; /* Margen seguro arriba y abajo */
+    flex: 1; /* Ocupa todo el espacio disponible entre header y footer */
+    padding: 10px;
     box-sizing: border-box;
     position: relative;
     z-index: 10;
@@ -48,7 +43,7 @@ body.qr-mode {
 .card-industrial {
     background-color: var(--color-fondo-tarjeta);
     border-radius: 12px;
-    padding: 2.5rem;
+    padding: 2rem; /* Padding estándar */
     width: 100%;
     max-width: 800px;
     text-align: center;
@@ -58,53 +53,63 @@ body.qr-mode {
     animation: fadeInUp 1s ease-out backwards;
     backdrop-filter: blur(10px);
     box-sizing: border-box;
-    margin: auto; /* Centrado extra */
+    
+    /* Centrado vertical perfecto */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* --- Ajustes específicos para QR --- */
+/* --- AJUSTES ESPECÍFICOS PARA LA TARJETA QR (PC) --- */
+/* Usamos unidades 'vh' (viewport height) para que escale según la altura de la pantalla */
 .qr-card {
-    max-width: 600px;
-    padding: 3rem 2rem;
+    max-width: 900px;
+    padding: 1.5rem; /* Menos padding para ganar espacio */
+    height: auto;
+    max-height: 85vh; /* Nunca más alto que el 85% de la pantalla */
 }
 
 .icono-evento-img {
-    width: 120px;
-    height: auto;
-    margin-bottom: 20px;
+    height: 8vh; /* Altura dinámica: 8% de la pantalla */
+    width: auto;
+    margin-bottom: 1vh;
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
 }
 
 .titulo-principal {
     font-family: 'Orbitron', sans-serif;
     color: var(--color-acento-amarillo);
-    font-size: 2.2rem;
+    font-size: 4vh; /* Tamaño texto dinámico */
     text-transform: uppercase;
-    margin-bottom: 5px;
+    margin-bottom: 0.5vh;
     text-shadow: var(--glow-amarillo);
-    line-height: 1.2;
+    line-height: 1.1;
 }
 
 .subtitulo-evento {
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 2vh;
     color: var(--color-texto-blanco);
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
     letter-spacing: 2px;
 }
 
 .detalles-evento {
     color: var(--color-texto-gris-claro);
-    font-size: 1rem;
-    margin-top: 20px;
-    padding-top: 15px;
+    font-size: 1.8vh;
+    margin-top: 2vh;
+    padding-top: 1vh;
     border-top: 1px solid rgba(255, 215, 0, 0.3);
+    width: 100%;
 }
 
-/* --- Contenedor QR y Animación --- */
+/* --- Contenedor QR Dinámico --- */
 .qr-scanner-container {
     position: relative;
-    width: 300px;
-    height: 300px;
+    /* EL QR será cuadrado y su tamaño depende de la altura de la pantalla */
+    height: 35vh; 
+    width: 35vh; 
     margin: 0 auto;
     padding: 10px;
     background: rgba(0, 0, 0, 0.5);
@@ -120,64 +125,107 @@ body.qr-mode {
     z-index: 3; opacity: 0; pointer-events: none; transition: opacity 0.2s;
 }
 
-/* MÁSCARA NEGRA (CORREGIDA) */
+/* Máscara Negra (Origen Abajo para revelar de Arriba a Abajo al reducirse) */
 .scan-mask {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-color: #000;
     z-index: 2;
-    /* CLAVE: Origen abajo. Al escalar a 0, baja el techo -> Revela desde ARRIBA */
     transform-origin: bottom; 
-    transform: scaleY(0); /* Empieza invisible (QR visible) */
+    transform: scaleY(0); 
 }
 
-/* LÁSER */
+/* Láser */
 .laser-beam {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: #0f0;
-    box-shadow: 0 0 15px #0f0, 0 0 30px #0f0;
-    z-index: 4;
-    display: none; 
+    position: absolute; left: 0; width: 100%; height: 4px;
+    background: #0f0; box-shadow: 0 0 15px #0f0, 0 0 30px #0f0;
+    z-index: 4; display: none; 
 }
 
 .qr-image {
     width: 100%; height: 100%; object-fit: contain; border-radius: 8px; z-index: 1; display: block;
 }
 
-/* --- Footer Fijo/Fluido --- */
+/* --- Footer Fijo --- */
 .footer-tic {
     width: 100%;
-    padding: 1.5rem 1rem;
+    padding: 1vh 1rem; /* Padding vertical muy pequeño para ahorrar espacio */
     background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
     border-top: 1px solid rgba(122, 49, 138, 0.3);
-    z-index: 10;
-    margin-top: auto; /* Empuja al fondo si sobra espacio */
+    z-index: 100;
+    /* Fijo al fondo en PC para asegurar que se vea */
+    position: relative;
+    flex-shrink: 0; 
 }
 
-/* --- Otros --- */
+.footer-content { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 15px; animation: fadeInUp 1.2s ease-out; }
+.tic-logo-img { height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)); }
+.tic-info-container { text-align: left; }
+.tic-dept { font-family: 'Orbitron', sans-serif; color: var(--color-texto-gris-claro); font-size: 0.8rem; letter-spacing: 1px; margin: 0; }
+.dev-name { font-family: 'Montserrat', sans-serif; color: var(--color-texto-blanco); font-weight: 700; margin: 0; font-size: 0.85rem; }
+.cps-badge {
+    display: inline-block; background-color: rgba(122, 49, 138, 0.2); border: 1px solid var(--color-institucional-morado);
+    color: var(--color-acento-amarillo); padding: 2px 8px; border-radius: 4px; font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem; letter-spacing: 1px; margin-top: 2px;
+}
+
+/* --- Otros Elementos --- */
 .form-grid { display: grid; gap: 20px; text-align: left; width: 100%; }
 .full-width { grid-column: 1 / -1; }
 .form-group label { display: block; color: var(--color-acento-amarillo); margin-bottom: 8px; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; }
 .form-group input, .form-group select { width: 100%; padding: 12px; border-radius: 6px; border: 2px solid rgba(122, 49, 138, 0.5); background: rgba(255,255,255,0.07); color: #fff; box-sizing: border-box; }
-.btn-industrial { display: block; width: 100%; padding: 15px; border: none; border-radius: 50px; background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0); color: #fff; font-family: 'Orbitron'; font-weight: bold; text-align: center; text-decoration: none; box-sizing: border-box; cursor: pointer; }
+.btn-industrial { display: flex; justify-content: center; align-items: center; width: 100%; padding: 15px; margin-top: 10px; border: none; border-radius: 50px; background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0); color: #fff; font-family: 'Orbitron'; font-weight: bold; text-decoration: none; box-sizing: border-box; cursor: pointer; }
 .checkbox-group { display: flex; align-items: center; gap: 10px; background: rgba(122,49,138,0.1); padding: 10px; border-radius: 6px; }
 
 /* Polígonos */
 #polygons-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
-.polygon-shape { position: absolute; bottom: -100px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); animation: floatAndRotate linear infinite; }
+.polygon-shape { position: absolute; bottom: -100px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); animation: floatAndRotate linear infinite; backdrop-filter: blur(1px); }
 @keyframes floatAndRotate { 0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scanline { 0% { left: -50%; opacity: 0; } 20% { opacity: 1; } 50% { left: 100%; opacity: 0; } 100% { left: 100%; opacity: 0; } }
 
-/* Responsive */
+/* =========================================================
+   MEDIA QUERIES: MÓVIL (Restaurar Scroll y Tamaños Fijos)
+   ========================================================= */
 @media screen and (max-width: 768px) {
-    .qr-card { padding: 1.5rem; width: 100%; }
-    .qr-scanner-container { width: 260px; height: 260px; }
+    body {
+        height: auto; /* Permitir altura automática */
+        min-height: 100vh;
+        overflow-y: auto; /* Permitir scroll vertical */
+    }
+
+    .container-flex {
+        padding: 30px 15px; /* Más espacio lateral */
+    }
+
+    .card-industrial, .qr-card {
+        max-width: 100%;
+        padding: 1.5rem;
+        height: auto; /* Altura automática */
+        max-height: none; /* Quitar límite de altura */
+    }
+
+    /* Restaurar tamaños fijos para móvil (más legible que vh) */
+    .icono-evento-img { height: auto; width: 100px; }
     .titulo-principal { font-size: 1.8rem; }
-    /* Ajuste Footer Móvil */
-    .footer-content { flex-direction: column; }
-    .tic-info-container { text-align: center; }
+    .subtitulo-evento { font-size: 1rem; }
+    .detalles-evento { font-size: 0.9rem; }
+
+    .qr-scanner-container {
+        height: 260px; /* Tamaño fijo cómodo */
+        width: 260px;
+    }
+
+    .footer-tic {
+        position: relative; /* Flujo normal */
+        padding: 2rem 1rem;
+    }
+    
+    .footer-content {
+        flex-direction: column; /* Apilar logo y texto */
+        gap: 10px;
+    }
+    
+    .tic-info-container {
+        text-align: center;
+    }
 }
