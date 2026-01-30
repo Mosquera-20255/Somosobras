@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&family=Roboto+Condensed:wght@700&display=swap');
 
 :root {
-    /* Paleta Institucional "High-Tech" */
     --color-fondo-principal: #1a1a1a;
     --color-institucional-morado: #7a318a;
     --color-acento-amarillo: #FFD700;
@@ -9,7 +8,6 @@
     --color-texto-gris-claro: #e0e0e0;
     --color-fondo-tarjeta: rgba(40, 40, 40, 0.95);
     
-    /* Efectos Glow */
     --glow-morado: 0 0 10px rgba(122, 49, 138, 0.7), 0 0 20px rgba(122, 49, 138, 0.5);
     --glow-amarillo: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
 }
@@ -51,7 +49,7 @@ body {
     justify-content: center;
     align-items: center;
     flex: 1;
-    padding: 30px 15px;
+    padding: 20px; /* Padding seguro para móviles */
     box-sizing: border-box;
     position: relative;
     z-index: 10;
@@ -70,6 +68,7 @@ body {
     box-shadow: var(--glow-morado);
     animation: fadeInUp 1s ease-out backwards, pulse-border-tech 4s infinite ease-in-out;
     backdrop-filter: blur(10px);
+    box-sizing: border-box; /* Crucial para responsive */
 }
 
 .icono-evento-img {
@@ -88,6 +87,7 @@ body {
     text-transform: uppercase;
     margin-bottom: 15px;
     text-shadow: var(--glow-amarillo);
+    line-height: 1.1; /* Mejor lectura en móvil */
 }
 
 .subtitulo-evento {
@@ -100,7 +100,7 @@ body {
 .detalles-evento {
     color: var(--color-texto-gris-claro);
     font-size: 1rem;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(255, 215, 0, 0.3);
 }
@@ -133,9 +133,7 @@ body {
     transition: all 0.3s ease;
     box-sizing: border-box;
 }
-
 .form-group select option { background: #333; color: #fff; }
-
 input:focus, select:focus {
     outline: none !important;
     border-color: var(--color-acento-amarillo) !important;
@@ -143,23 +141,26 @@ input:focus, select:focus {
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
+/* --- BOTÓN MEJORADO RESPONSIVE --- */
 .btn-industrial {
-    display: inline-block;
-    width: 100%;
+    display: block; /* Asegura que ocupe bloque completo */
+    width: 100%;    /* Ancho total del contenedor padre */
     padding: 18px;
-    margin-top: 30px;
+    margin-top: 10px;
     border: none;
     border-radius: 50px;
     background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0);
     color: var(--color-texto-blanco);
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
     text-transform: uppercase;
     transition: all 0.4s ease;
     box-shadow: 0 5px 20px rgba(122, 49, 138, 0.6);
-    text-decoration: none; /* Asegura que no tenga subrayado */
+    text-decoration: none;
+    box-sizing: border-box; /* Evita que el padding rompa el ancho */
+    text-align: center;
 }
 
 .btn-industrial:hover {
@@ -169,19 +170,18 @@ input:focus, select:focus {
     box-shadow: 0 10px 30px rgba(255, 215, 0, 0.7);
 }
 
-/* Checkbox */
 .checkbox-group {
     display: flex; align-items: center; gap: 12px;
     background-color: rgba(122, 49, 138, 0.1);
     padding: 15px; border-radius: 6px; border: 1px solid rgba(122, 49, 138, 0.4);
 }
-.checkbox-group input { width: 20px; height: 20px; accent-color: var(--color-acento-amarillo); }
+.checkbox-group input { width: 20px; height: 20px; accent-color: var(--color-acento-amarillo); flex-shrink: 0; }
 .terms-label a { color: var(--color-acento-amarillo); }
 
-/* --- FIRMA / FOOTER TIC --- */
+/* --- Footer TIC --- */
 .footer-tic {
     width: 100%;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
     margin-top: auto;
     text-align: center;
     position: relative;
@@ -189,163 +189,76 @@ input:focus, select:focus {
     border-top: 1px solid rgba(122, 49, 138, 0.3);
     z-index: 10;
 }
-
 .footer-tic::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -50%; width: 50%; height: 2px;
+    content: ''; position: absolute; top: 0; left: -50%; width: 50%; height: 2px;
     background: linear-gradient(90deg, transparent, var(--color-acento-amarillo), transparent);
-    animation: scanline 6s infinite ease-in-out;
-    opacity: 0.8;
+    animation: scanline 6s infinite ease-in-out; opacity: 0.8;
 }
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    animation: fadeInUp 1.2s ease-out;
-}
-
-.tic-logo-img {
-    height: 60px;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
-    transition: all 0.3s ease;
-}
-.tic-logo-img:hover {
-    filter: drop-shadow(0 0 12px var(--color-acento-amarillo));
-    transform: scale(1.05);
-}
-
-.tic-info-container { display: flex; flex-direction: column; gap: 5px; }
-
-.tic-dept {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--color-texto-gris-claro);
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    margin: 0;
-}
-
-.dev-name {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--color-texto-blanco);
-    font-weight: 700;
-    margin: 0;
-    font-size: 1rem;
-}
-
+.footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; animation: fadeInUp 1.2s ease-out; }
+.tic-logo-img { height: 60px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)); }
+.tic-dept { font-family: 'Orbitron', sans-serif; color: var(--color-texto-gris-claro); font-size: 0.9rem; letter-spacing: 1px; margin: 0; }
+.dev-name { font-family: 'Montserrat', sans-serif; color: var(--color-texto-blanco); font-weight: 700; margin: 0; font-size: 1rem; }
 .cps-badge {
-    display: inline-block;
-    background-color: rgba(122, 49, 138, 0.2);
-    border: 1px solid var(--color-institucional-morado);
-    color: var(--color-acento-amarillo);
-    padding: 4px 12px;
-    border-radius: 4px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 1.5px;
-    box-shadow: 0 0 10px rgba(122, 49, 138, 0.3);
-    transition: all 0.3s ease;
-    margin-top: 5px;
-}
-.cps-badge:hover {
-    background-color: var(--color-institucional-morado);
-    color: #fff;
-    box-shadow: 0 0 20px var(--color-institucional-morado);
+    display: inline-block; background-color: rgba(122, 49, 138, 0.2); border: 1px solid var(--color-institucional-morado);
+    color: var(--color-acento-amarillo); padding: 4px 12px; border-radius: 4px; font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem; letter-spacing: 1.5px; margin-top: 5px;
 }
 
-/* =========================================
-   ESTILOS ESPECÍFICOS PARA LA PÁGINA QR
-   ========================================= */
-
-.qr-card { max-width: 500px; }
+/* --- ESTILOS PÁGINA QR (Proyección) --- */
+.qr-card { max-width: 600px; padding: 3rem; } /* Más grande para proyección */
 
 .qr-scanner-container {
     position: relative;
-    width: 280px;
-    height: 280px;
-    margin: 30px auto;
+    width: 320px; /* QR más grande */
+    height: 320px;
+    margin: 20px auto;
     padding: 15px;
     background: rgba(0, 0, 0, 0.3);
     border-radius: 12px;
     border: 3px solid var(--color-institucional-morado);
-    box-shadow: var(--glow-morado), inset 0 0 20px rgba(122, 49, 138, 0.3);
+    box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
     overflow: hidden;
 }
 
 .qr-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 8px;
-    filter: contrast(1.1) brightness(0.95);
-    transition: all 0.3s ease;
+    width: 100%; height: 100%; object-fit: contain;
+    border-radius: 8px; filter: contrast(1.1) brightness(0.95);
+    transition: opacity 0.2s ease;
 }
 
-/* Animación Glitch */
+/* Animación de "Desmaterialización / Construcción" */
 .qr-disassembling {
-    animation: cyber-glitch 0.8s infinite linear;
-    filter: hue-rotate(90deg) contrast(2) blur(1px);
+    animation: construct-destruct 1.5s infinite steps(5);
+    filter: hue-rotate(90deg) contrast(2) pixelate(4px); /* pixelate si el navegador lo soporta */
     opacity: 0.8;
 }
 
-@keyframes cyber-glitch {
-    0% { transform: translate(0) scale(1); clip-path: inset(0 0 0 0); }
-    20% { transform: translate(-5px, 5px) scale(1.02); clip-path: inset(10% 0 20% 0); }
-    40% { transform: translate(5px, -5px) scale(0.98); clip-path: inset(0 20% 0 10%); }
-    60% { transform: translate(-5px, 0) scale(1.05); clip-path: inset(30% 0 30% 0); }
-    80% { transform: translate(5px, 5px) scale(0.95); clip-path: inset(10% 20% 10% 20%); }
-    100% { transform: translate(0) scale(1); clip-path: inset(0 0 0 0); }
+@keyframes construct-destruct {
+    0% { clip-path: inset(0 0 0 0); transform: scale(1); }
+    20% { clip-path: inset(10% 0 80% 0); transform: translate(-5px, 0); }
+    40% { clip-path: inset(50% 0 0 0); transform: translate(5px, 0); }
+    60% { clip-path: inset(0 80% 0 0); transform: translate(-5px, 5px); }
+    80% { clip-path: inset(0 0 80% 0); transform: translate(5px, -5px); }
+    100% { clip-path: inset(0 0 0 0); transform: scale(1); }
 }
 
-/* Línea Láser */
 .scan-line {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 4px;
+    position: absolute; top: 0; left: 0; width: 100%; height: 5px;
     background: var(--color-acento-amarillo);
-    box-shadow: 0 0 15px var(--color-acento-amarillo), 0 0 30px var(--color-acento-amarillo);
-    opacity: 0.7;
-    animation: scanner-move 3s ease-in-out infinite;
-    z-index: 5;
+    box-shadow: 0 0 20px var(--color-acento-amarillo);
+    animation: scanner-move 2.5s ease-in-out infinite; z-index: 5;
 }
 
-@keyframes scanner-move {
-    0%, 100% { top: 0%; opacity: 0; }
-    10% { opacity: 1; }
-    50% { top: 100%; }
-    90% { opacity: 1; }
-}
-
-
-/* =========================================
-   FONDO DE POLÍGONOS TECH
-   ========================================= */
-
-#polygons-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    overflow: hidden;
-    z-index: 0; 
-    pointer-events: none;
-}
-
+/* --- FONDO POLÍGONOS --- */
+#polygons-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
 .polygon-shape {
-    position: absolute;
-    bottom: -100px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    animation: floatAndRotate linear infinite;
-    backdrop-filter: blur(1px);
+    position: absolute; bottom: -100px;
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15);
+    animation: floatAndRotate linear infinite; backdrop-filter: blur(1px);
 }
-
 @keyframes floatAndRotate {
     0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
-    10% { opacity: 0.6; }
-    90% { opacity: 0.6; }
+    10% { opacity: 0.6; } 90% { opacity: 0.6; }
     100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; }
 }
 
@@ -353,6 +266,6 @@ input:focus, select:focus {
 @media screen and (max-width: 768px) {
     .titulo-principal { font-size: 1.8rem; }
     .card-industrial { padding: 1.5rem; }
-    .form-grid { grid-template-columns: 1fr; }
-    .footer-tic { padding: 2rem 1rem; }
+    .qr-card { padding: 1.5rem; width: 100%; } /* Ajuste QR en móvil */
+    .qr-scanner-container { width: 250px; height: 250px; }
 }
