@@ -49,7 +49,7 @@ body {
     justify-content: center;
     align-items: center;
     flex: 1;
-    padding: 20px; /* Padding seguro para móviles */
+    padding: 20px;
     box-sizing: border-box;
     position: relative;
     z-index: 10;
@@ -68,7 +68,7 @@ body {
     box-shadow: var(--glow-morado);
     animation: fadeInUp 1s ease-out backwards, pulse-border-tech 4s infinite ease-in-out;
     backdrop-filter: blur(10px);
-    box-sizing: border-box; /* Crucial para responsive */
+    box-sizing: border-box;
 }
 
 .icono-evento-img {
@@ -87,7 +87,7 @@ body {
     text-transform: uppercase;
     margin-bottom: 15px;
     text-shadow: var(--glow-amarillo);
-    line-height: 1.1; /* Mejor lectura en móvil */
+    line-height: 1.1;
 }
 
 .subtitulo-evento {
@@ -141,10 +141,10 @@ input:focus, select:focus {
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
-/* --- BOTÓN MEJORADO RESPONSIVE --- */
+/* --- Botón Responsive --- */
 .btn-industrial {
-    display: block; /* Asegura que ocupe bloque completo */
-    width: 100%;    /* Ancho total del contenedor padre */
+    display: block;
+    width: 100%;
     padding: 18px;
     margin-top: 10px;
     border: none;
@@ -159,10 +159,9 @@ input:focus, select:focus {
     transition: all 0.4s ease;
     box-shadow: 0 5px 20px rgba(122, 49, 138, 0.6);
     text-decoration: none;
-    box-sizing: border-box; /* Evita que el padding rompa el ancho */
+    box-sizing: border-box;
     text-align: center;
 }
-
 .btn-industrial:hover {
     background: linear-gradient(135deg, var(--color-acento-amarillo), #ffd700);
     color: #222;
@@ -204,12 +203,15 @@ input:focus, select:focus {
     font-size: 0.75rem; letter-spacing: 1.5px; margin-top: 5px;
 }
 
-/* --- ESTILOS PÁGINA QR (Proyección) --- */
-.qr-card { max-width: 600px; padding: 3rem; } /* Más grande para proyección */
+/* =========================================
+   ESTILOS ESPECÍFICOS PARA LA PÁGINA QR
+   ========================================= */
+.qr-card { max-width: 600px; padding: 3rem; }
 
+/* Contenedor Holográfico */
 .qr-scanner-container {
     position: relative;
-    width: 320px; /* QR más grande */
+    width: 320px;
     height: 320px;
     margin: 20px auto;
     padding: 15px;
@@ -218,35 +220,69 @@ input:focus, select:focus {
     border: 3px solid var(--color-institucional-morado);
     box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
     overflow: hidden;
+    /* Cuadrícula Holográfica de fondo */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
 .qr-image {
     width: 100%; height: 100%; object-fit: contain;
-    border-radius: 8px; filter: contrast(1.1) brightness(0.95);
-    transition: opacity 0.2s ease;
+    border-radius: 8px; 
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); /* Brillo suave constante */
+    transition: all 0.3s ease;
 }
 
-/* Animación de "Desmaterialización / Construcción" */
-.qr-disassembling {
-    animation: construct-destruct 1.5s infinite steps(5);
-    filter: hue-rotate(90deg) contrast(2) pixelate(4px); /* pixelate si el navegador lo soporta */
-    opacity: 0.8;
+/* --- NUEVA ANIMACIÓN: CONTRACT & GENERATE --- */
+/* Esta clase se activa con JS cada minuto */
+.qr-contracting {
+    animation: contract-generate 2s ease-in-out forwards;
 }
 
-@keyframes construct-destruct {
-    0% { clip-path: inset(0 0 0 0); transform: scale(1); }
-    20% { clip-path: inset(10% 0 80% 0); transform: translate(-5px, 0); }
-    40% { clip-path: inset(50% 0 0 0); transform: translate(5px, 0); }
-    60% { clip-path: inset(0 80% 0 0); transform: translate(-5px, 5px); }
-    80% { clip-path: inset(0 0 80% 0); transform: translate(5px, -5px); }
-    100% { clip-path: inset(0 0 0 0); transform: scale(1); }
+@keyframes contract-generate {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+        opacity: 1;
+    }
+    30% {
+        /* Se comprime en una línea horizontal brillante */
+        transform: scaleY(0.01) scaleX(1.1);
+        filter: brightness(3) drop-shadow(0 0 20px var(--color-acento-amarillo));
+        opacity: 0.8;
+    }
+    50% {
+        /* Desaparece un momento (como si se apagara) */
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        /* Reaparece como línea vertical delgada */
+        transform: scaleX(0.01) scaleY(1.1);
+        filter: brightness(3) drop-shadow(0 0 20px var(--color-institucional-morado));
+        opacity: 0.8;
+    }
+    100% {
+        /* Se expande a tamaño normal */
+        transform: scale(1);
+        filter: brightness(1);
+        opacity: 1;
+    }
 }
 
+/* Línea Láser constante (arriba-abajo) */
 .scan-line {
-    position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+    position: absolute; top: 0; left: 0; width: 100%; height: 3px;
     background: var(--color-acento-amarillo);
-    box-shadow: 0 0 20px var(--color-acento-amarillo);
-    animation: scanner-move 2.5s ease-in-out infinite; z-index: 5;
+    box-shadow: 0 0 15px var(--color-acento-amarillo);
+    animation: scanner-move 3s ease-in-out infinite; z-index: 5;
+    opacity: 0.6;
+}
+@keyframes scanner-move {
+    0%, 100% { top: 10%; opacity: 0; }
+    10% { opacity: 1; }
+    50% { top: 90%; }
+    90% { opacity: 1; }
 }
 
 /* --- FONDO POLÍGONOS --- */
@@ -266,6 +302,6 @@ input:focus, select:focus {
 @media screen and (max-width: 768px) {
     .titulo-principal { font-size: 1.8rem; }
     .card-industrial { padding: 1.5rem; }
-    .qr-card { padding: 1.5rem; width: 100%; } /* Ajuste QR en móvil */
-    .qr-scanner-container { width: 250px; height: 250px; }
+    .qr-card { padding: 1.5rem; width: 100%; } 
+    .qr-scanner-container { width: 260px; height: 260px; }
 }
