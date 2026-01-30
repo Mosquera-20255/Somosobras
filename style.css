@@ -12,7 +12,9 @@
     --glow-amarillo: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
-/* --- ESTILOS BASE (Generales para toda la app) --- */
+/* =========================================
+   ESTILOS BASE (Móvil First / General)
+   ========================================= */
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -20,25 +22,26 @@ body {
     background-image: radial-gradient(circle at center, #2c2c2c 0%, #111111 100%);
     color: var(--color-texto-blanco);
     
-    /* Configuración Default: Scroll permitido */
+    /* Por defecto: Scroll normal permitido */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .container-flex {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1; /* Ocupa el espacio disponible */
+    flex: 1; 
     padding: 30px 20px;
     box-sizing: border-box;
     position: relative;
     z-index: 10;
 }
 
-/* Tarjeta Estándar */
+/* Tarjeta General */
 .card-industrial {
     background-color: var(--color-fondo-tarjeta);
     border-radius: 12px;
@@ -52,16 +55,16 @@ body {
     animation: fadeInUp 1s ease-out backwards;
     backdrop-filter: blur(10px);
     box-sizing: border-box;
-    margin: 20px 0;
+    margin: 20px 0; 
 }
 
-/* Elementos Visuales Comunes */
+/* Elementos Comunes */
 .icono-evento-img { width: 140px; height: auto; margin-bottom: 25px; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)); }
 .titulo-principal { font-family: 'Orbitron', sans-serif; color: var(--color-acento-amarillo); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 15px; text-shadow: var(--glow-amarillo); line-height: 1.1; }
 .subtitulo-evento { font-weight: 700; font-size: 1.2rem; color: var(--color-texto-blanco); margin-bottom: 10px; }
 .detalles-evento { color: var(--color-texto-gris-claro); font-size: 1rem; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 215, 0, 0.3); }
 
-/* Formulario */
+/* Formulario & Botones */
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left; width: 100%; }
 .full-width { grid-column: 1 / -1; }
 .form-group label { display: block; color: var(--color-acento-amarillo); margin-bottom: 10px; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; }
@@ -75,10 +78,10 @@ input:focus, select:focus { outline: none !important; border-color: var(--color-
 .checkbox-group input { width: 20px; height: 20px; accent-color: var(--color-acento-amarillo); flex-shrink: 0; }
 .terms-label a { color: var(--color-acento-amarillo); }
 
-/* Footer Estándar */
+/* Footer Estándar (Móvil y Normal) */
 .footer-tic { width: 100%; padding: 2rem 1rem; margin-top: auto; text-align: center; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); border-top: 1px solid rgba(122, 49, 138, 0.3); z-index: 10; }
 .footer-tic::before { content: ''; position: absolute; top: 0; left: -50%; width: 50%; height: 2px; background: linear-gradient(90deg, transparent, var(--color-acento-amarillo), transparent); animation: scanline 6s infinite ease-in-out; opacity: 0.8; }
-.footer-content { display: flex; flex-direction: column; align-items: center; gap: 10px; animation: fadeInUp 1.2s ease-out; }
+.footer-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; animation: fadeInUp 1.2s ease-out; }
 .tic-logo-img { height: 60px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)); }
 .tic-dept { font-family: 'Orbitron', sans-serif; color: var(--color-texto-gris-claro); font-size: 0.9rem; letter-spacing: 1px; margin: 0; }
 .dev-name { font-family: 'Montserrat', sans-serif; color: var(--color-texto-blanco); font-weight: 700; margin: 0; font-size: 1rem; }
@@ -86,92 +89,154 @@ input:focus, select:focus { outline: none !important; border-color: var(--color-
 
 
 /* =========================================================
-   MODO QR PROYECCIÓN (PC / PANTALLA COMPLETA)
+   MODO ESPECIAL QR (SOLO PARA PC / PANTALLAS GRANDES)
+   Estas reglas sobrescriben el comportamiento normal
    ========================================================= */
 
-/* 1. Estructura Principal Fija */
-body.qr-mode {
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden; /* Fijo para pantallas normales de PC */
-    justify-content: space-between; /* Distribuye espacio: Header - Contenido - Footer */
-}
-
-/* 2. Contenedor Flexible Centrado */
-body.qr-mode .container-flex {
-    flex: 1; /* Toma todo el espacio disponible */
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centrado vertical estricto */
-    overflow: hidden; 
-}
-
-/* 3. Tarjeta QR Optimizada */
-body.qr-mode .qr-card {
-    /* Dimensiones fluidas basadas en altura de pantalla */
-    height: auto;
-    width: auto;
-    max-height: 80vh; /* Dejar espacio suficiente para el footer */
-    padding: 2vh 4vw;
-    margin: 0;
+/* Solo aplicamos modo "Pantalla Fija" si el ancho es mayor a 768px (PC/Tablet Landscape) */
+@media screen and (min-width: 769px) {
     
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    body.qr-mode {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden; /* Fijo sin scroll */
+        justify-content: space-between;
+    }
+
+    /* Contenedor central expandido */
+    body.qr-mode .container-flex {
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    /* Tarjeta QR escalable */
+    body.qr-mode .qr-card {
+        height: auto;
+        width: auto;
+        /* Usamos 'vmin' para que dependa del lado más pequeño de la pantalla (evita cortes) */
+        max-width: 80vmin; 
+        max-height: 80vh;
+        padding: 2vh 4vw;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Textos Dinámicos */
+    body.qr-mode .icono-evento-img { height: 7vh; width: auto; margin-bottom: 1vh; }
+    body.qr-mode .titulo-principal { font-size: 4vh; margin-bottom: 0; }
+    body.qr-mode .subtitulo-evento { font-size: 2vh; margin-bottom: 2vh; }
+    body.qr-mode .detalles-evento { margin-top: 2vh; padding-top: 1vh; font-size: 1.8vh; }
+    body.qr-mode .loading-dots { font-size: 1.5vh !important; }
+
+    /* CONTENEDOR QR (Cuadrado Seguro) */
+    body.qr-mode .qr-scanner-container {
+        /* Usamos 35vh para que sea proporcional a la altura */
+        height: 35vh; 
+        width: 35vh; 
+        margin: 0 auto;
+        padding: 10px;
+        position: relative;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 12px;
+        border: 3px solid var(--color-institucional-morado);
+        box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
+        overflow: hidden;
+    }
+
+    /* FOOTER PC (Firma Centrada) */
+    body.qr-mode .footer-tic {
+        flex-shrink: 0;
+        padding: 1vh 1rem;
+        position: relative;
+        background: rgba(0,0,0,0.8);
+    }
+    body.qr-mode .footer-content { 
+        flex-direction: row; 
+        gap: 30px; 
+        justify-content: center; /* ESTO CENTRA LA FIRMA HORIZONTALMENTE */
+        width: 100%;
+    }
+    body.qr-mode .tic-logo-img { height: 4vh; width: auto; }
+    body.qr-mode .tic-info-container { text-align: left; }
+    body.qr-mode .tic-dept { font-size: 1.4vh; }
+    body.qr-mode .dev-name { font-size: 1.5vh; }
 }
 
-/* 4. Textos Dinámicos (Reducidos ligeramente para asegurar que quepan) */
-body.qr-mode .icono-evento-img {
-    height: 6vh; /* Logo más compacto */
-    width: auto; margin-bottom: 1vh;
-}
-body.qr-mode .titulo-principal {
-    font-size: 4vh; margin-bottom: 0; line-height: 1.1;
-}
-body.qr-mode .subtitulo-evento {
-    font-size: 1.8vh; margin-bottom: 1.5vh;
-}
-body.qr-mode .detalles-evento {
-    margin-top: 1.5vh; padding-top: 1vh; font-size: 1.6vh; border: none;
-}
-body.qr-mode .loading-dots { font-size: 1.4vh !important; }
-
-/* 5. EL CONTENEDOR QR (La pieza clave) */
-body.qr-mode .qr-scanner-container {
-    /* Cuadrado perfecto basado en altura, pero no tan grande para no cortar */
-    height: 35vh; 
-    width: 35vh; 
-    margin: 0 auto;
-    padding: 10px;
+/* =========================================
+   ESTILOS MÓVIL (Celulares y Tablets Verticales)
+   Aquí forzamos el comportamiento normal, anulando .qr-mode
+   ========================================= */
+@media screen and (max-width: 768px) {
     
-    position: relative;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
-    border: 3px solid var(--color-institucional-morado);
-    box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
-    overflow: hidden;
+    /* Restaurar body a normalidad absoluta */
+    body.qr-mode { 
+        height: auto !important; 
+        overflow-y: auto !important; 
+        display: flex !important;
+        justify-content: flex-start !important;
+    }
+    
+    .container-flex { padding: 30px 15px; }
+    
+    /* Tarjeta QR Normal */
+    .qr-card {
+        width: 100%; 
+        max-width: 100%;
+        height: auto;
+        padding: 2rem 1rem;
+        margin: 20px 0;
+    }
+    
+    /* Restaurar tamaños fijos (Legibilidad Móvil) */
+    .icono-evento-img { width: 100px; height: auto; }
+    .titulo-principal { font-size: 1.8rem; }
+    .subtitulo-evento { font-size: 1rem; }
+    .detalles-evento { font-size: 0.9rem; margin-top: 15px; }
+    .loading-dots { font-size: 0.8rem !important; }
+    
+    /* QR Tamaño Fijo Cómodo */
+    .qr-scanner-container { 
+        width: 260px; 
+        height: 260px; 
+        margin: 20px auto; 
+        /* Importante: restaurar estilos base aquí por si acaso */
+        position: relative;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 12px;
+        border: 3px solid var(--color-institucional-morado);
+        box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
+        overflow: hidden;
+    }
+    
+    /* Footer Móvil */
+    .footer-tic { position: relative; padding: 2rem 1rem; }
+    .footer-content { flex-direction: column; gap: 10px; }
+    .tic-logo-img { height: 60px; }
+    .tic-dept, .dev-name { font-size: 0.9rem; }
+    .tic-info-container { text-align: center; }
 }
-
-/* 6. Footer Fijo abajo */
-body.qr-mode .footer-tic {
-    flex-shrink: 0; /* Prohibido encogerse */
-    padding: 1vh 1rem;
-    position: relative;
-    background: rgba(0,0,0,0.9);
-    border-top: 1px solid rgba(122, 49, 138, 0.3);
-}
-body.qr-mode .footer-content { flex-direction: row; gap: 30px; }
-body.qr-mode .tic-logo-img { height: 4vh; }
-body.qr-mode .tic-info-container { text-align: left; }
-body.qr-mode .tic-dept { font-size: 1.4vh; }
-body.qr-mode .dev-name { font-size: 1.5vh; }
 
 
 /* =========================================
-   ANIMACIONES
+   ANIMACIONES (Canvas, Láser, Polígonos)
    ========================================= */
+/* Lienzo de ruido */
+#noise-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+
+/* Máscara Negra */
+.scan-mask { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 2; transform-origin: bottom; transform: scaleY(0); }
+
+/* Láser */
+.laser-beam { position: absolute; left: 0; width: 100%; height: 3px; background: var(--color-acento-amarillo); box-shadow: 0 0 15px var(--color-acento-amarillo); z-index: 4; display: none; }
+
+/* Imagen QR */
+.qr-image { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; z-index: 1; display: block; }
+
+/* Animación Contracción (Opcional si usas el JS de ruido) */
 .qr-contracting { animation: contract-generate 2.5s ease-in-out forwards; }
 @keyframes contract-generate {
     0% { transform: scale(1); filter: brightness(1); opacity: 1; }
@@ -181,64 +246,9 @@ body.qr-mode .dev-name { font-size: 1.5vh; }
     100% { transform: scale(1); filter: brightness(1); opacity: 1; }
 }
 
-.scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--color-acento-amarillo); box-shadow: 0 0 15px var(--color-acento-amarillo); animation: scanner-move 3s ease-in-out infinite; z-index: 5; opacity: 0.6; }
-@keyframes scanner-move { 0%, 100% { top: 10%; opacity: 0; } 10% { opacity: 1; } 50% { top: 90%; } 90% { opacity: 1; } }
-
+/* Polígonos */
 #polygons-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
 .polygon-shape { position: absolute; bottom: -100px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); animation: floatAndRotate linear infinite; backdrop-filter: blur(1px); }
 @keyframes floatAndRotate { 0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes scanline { 0% { left: -50%; opacity: 0; } 20% { opacity: 1; } 50% { left: 100%; opacity: 0; } 100% { left: 100%; opacity: 0; } }
-
-
-/* =========================================================
-   MEDIA QUERY 1: PC CON PANTALLA BAJITA (LAPTOPS)
-   Si la altura es menor a 700px, ACTIVAR SCROLL para que no se corte
-   ========================================================= */
-@media screen and (max-height: 700px) {
-    body.qr-mode {
-        height: auto;
-        overflow-y: auto; /* Permitir scroll si no cabe verticalmente */
-        display: block; /* Flujo normal */
-    }
-    body.qr-mode .container-flex {
-        height: auto;
-        padding: 20px;
-    }
-    body.qr-mode .qr-card {
-        max-height: none;
-        margin: 20px auto;
-    }
-    body.qr-mode .footer-tic {
-        position: relative; /* Ya no fijo */
-    }
-}
-
-/* =========================================================
-   MEDIA QUERY 2: MÓVIL / TABLET (Vertical)
-   Restaurar todo a flujo normal y tamaños legibles
-   ========================================================= */
-@media screen and (max-width: 768px) {
-    body.qr-mode { height: auto; overflow-y: auto; display: block; }
-    
-    body.qr-mode .container-flex { display: flex; padding: 30px 20px; height: auto; }
-    
-    body.qr-mode .qr-card {
-        height: auto; max-height: none; width: 100%; max-width: 100%;
-        padding: 2rem 1rem; margin: 20px 0;
-    }
-    
-    /* Tamaños fijos para móvil */
-    body.qr-mode .icono-evento-img { width: 100px; height: auto; }
-    body.qr-mode .titulo-principal { font-size: 1.8rem; }
-    body.qr-mode .subtitulo-evento { font-size: 1rem; }
-    body.qr-mode .detalles-evento { font-size: 0.9rem; margin-top: 15px; }
-    body.qr-mode .loading-dots { font-size: 0.8rem !important; }
-    
-    body.qr-mode .qr-scanner-container { width: 260px; height: 260px; margin: 20px auto; }
-    
-    body.qr-mode .footer-tic { position: relative; padding: 2rem 1rem; }
-    body.qr-mode .footer-content { flex-direction: column; gap: 10px; }
-    body.qr-mode .tic-logo-img { height: 60px; }
-    body.qr-mode .tic-dept, body.qr-mode .dev-name { font-size: 0.9rem; }
-}
