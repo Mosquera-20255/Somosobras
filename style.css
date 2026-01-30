@@ -252,3 +252,32 @@ input:focus, select:focus { outline: none !important; border-color: var(--color-
 @keyframes floatAndRotate { 0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes scanline { 0% { left: -50%; opacity: 0; } 20% { opacity: 1; } 50% { left: 100%; opacity: 0; } 100% { left: 100%; opacity: 0; } }
+/* ... (Mantén todo el CSS anterior igual) ... */
+
+/* =========================================
+   AGREGAR ESTO AL FINAL DEL CSS
+   ========================================= */
+
+/* Estilo específico para el título verde de éxito */
+.titulo-exito {
+    color: #4cd137;
+    text-shadow: 0 0 15px rgba(76, 209, 55, 0.6);
+    margin-bottom: 10px;
+    /* En PC será grande */
+    font-size: 3rem; 
+}
+
+/* AJUSTE PARA CELULAR (Corrige que se mueva o se vea gigante) */
+@media screen and (max-width: 768px) {
+    .titulo-exito {
+        font-size: 2.2rem; /* Tamaño controlado para móvil */
+        margin-top: 10px;
+    }
+    
+    .exito-card {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
