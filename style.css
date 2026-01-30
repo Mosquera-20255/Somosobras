@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&family=Roboto+Condensed:wght@700&display=swap');
+
+:root {
+    /* Paleta Institucional "High-Tech" */
+    --color-fondo-principal: #1a1a1a;
+    --color-institucional-morado: #7a318a;
+    --color-acento-amarillo: #FFD700;
+    --color-texto-blanco: #ffffff;
+    --color-texto-gris-claro: #e0e0e0;
+    --color-fondo-tarjeta: rgba(40, 40, 40, 0.95);
+
+    /* Efectos Glow */
+    --glow-morado: 0 0 10px rgba(122, 49, 138, 0.7), 0 0 20px rgba(122, 49, 138, 0.5);
+    --glow-amarillo: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* --- Animaciones --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes pulse-border-tech {
+    0% {
+        box-shadow: 0 0 0 0 rgba(122, 49, 138, 0.4), var(--glow-morado);
+        border-color: var(--color-institucional-morado);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(255, 215, 0, 0), 0 0 25px rgba(255, 215, 0, 0.6), 0 0 40px rgba(122, 49, 138, 0.4);
+        border-color: var(--color-acento-amarillo);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(122, 49, 138, 0.4), var(--glow-morado);
+        border-color: var(--color-institucional-morado);
+    }
+}
+
+@keyframes scanline {
+    0% {
+        left: -50%;
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    50% {
+        left: 100%;
+        opacity: 0;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+/* --- Estilos Generales --- */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-fondo-principal);
+    background-image: radial-gradient(circle at center, #2c2c2c 0%, #111111 100%);
+    color: var(--color-texto-blanco);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    /* Evitar scroll horizontal por animaciones */
+}
+
+.container-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 30px 15px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+    /* Contenido por encima del fondo */
+}
+
+/* --- Tarjeta Principal --- */
+.card-industrial {
+    background-color: var(--color-fondo-tarjeta);
+    border-radius: 12px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    border: 2px solid var(--color-institucional-morado);
+    box-shadow: var(--glow-morado);
+    animation: fadeInUp 1s ease-out backwards, pulse-border-tech 4s infinite ease-in-out;
+    backdrop-filter: blur(10px);
+}
+
+.icono-evento-img {
+    width: 140px;
+    height: auto;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    transition: transform 0.3s ease;
+}
+
+.icono-evento-img:hover {
+    transform: scale(1.05);
+}
+
+.titulo-principal {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--color-acento-amarillo);
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-shadow: var(--glow-amarillo);
+}
+
+.subtitulo-evento {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--color-texto-blanco);
+    margin-bottom: 10px;
+}
+
+.detalles-evento {
+    color: var(--color-texto-gris-claro);
+    font-size: 1rem;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* --- Formulario --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    text-align: left;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    color: var(--color-acento-amarillo);
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 6px;
+    border: 2px solid rgba(122, 49, 138, 0.5);
+    background-color: rgba(255, 255, 255, 0.07);
+    font-size: 1rem;
+    color: var(--color-texto-blanco);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group select option {
+    background: #333;
+    color: #fff;
+}
+
+input:focus,
+select:focus {
+    outline: none !important;
+    border-color: var(--color-acento-amarillo) !important;
+    background-color: rgba(255, 215, 0, 0.05);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.btn-industrial {
+    display: inline-block;
+    width: 100%;
+    padding: 18px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0);
+    color: var(--color-texto-blanco);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 20px rgba(122, 49, 138, 0.6);
+}
+
+.btn-industrial:hover {
+    background: linear-gradient(135deg, var(--color-acento-amarillo), #ffd700);
+    color: #222;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.7);
+}
+
+/* Checkbox */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(122, 49, 138, 0.1);
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid rgba(122, 49, 138, 0.4);
+}
+
+.checkbox-group input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-acento-amarillo);
+}
+
+.terms-label a {
+    color: var(--color-acento-amarillo);
+}
+
+/* --- FIRMA / FOOTER TIC --- */
+.footer-tic {
+    width: 100%;
+    padding: 3rem 1rem;
+    margin-top: auto;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    border-top: 1px solid rgba(122, 49, 138, 0.3);
+    z-index: 10;
+}
+
+.footer-tic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-acento-amarillo), transparent);
+    animation: scanline 6s infinite ease-in-out;
+    opacity: 0.8;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.tic-logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+    transition: all 0.3s ease;
+}
+
+.tic-logo-img:hover {
+    filter: drop-shadow(0 0 12px var(--color-acento-amarillo));
+    transform: scale(1.05);
+}
+
+.tic-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.tic-dept {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--color-texto-gris-claro);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.dev-name {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-texto-blanco);
+    font-weight: 700;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.cps-badge {
+    display: inline-block;
+    background-color: rgba(122, 49, 138, 0.2);
+    border: 1px solid var(--color-institucional-morado);
+    color: var(--color-acento-amarillo);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    box-shadow: 0 0 10px rgba(122, 49, 138, 0.3);
+    transition: all 0.3s ease;
+    margin-top: 5px;
+}
+
+.cps-badge:hover {
+    background-color: var(--color-institucional-morado);
+    color: #fff;
+    box-shadow: 0 0 20px var(--color-institucional-morado);
+}
+
+/* =========================================
+   FONDO DE POLÍGONOS TECH
+   ========================================= */
+
+#polygons-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    /* Detrás del contenido */
+    pointer-events: none;
+}
+
+.polygon-shape {
+    position: absolute;
+    bottom: -100px;
+    /* Inician debajo de la pantalla */
+    background: rgba(255, 255, 255, 0.03);
+    /* Relleno muy sutil */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    /* Borde sutil */
+    animation: floatAndRotate linear infinite;
+    backdrop-filter: blur(1px);
+}
+
+/* Animación de flotación y rotación 3D */
+@keyframes floatAndRotate {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    /* Aparecen */
+    90% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-120vh) rotate(360deg) scale(1.2);
+        /* Suben y rotan */
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .titulo-principal {
+        font-size: 1.8rem;
+    }
+
+    .card-industrial {
+        padding: 1.5rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-tic {
+        padding: 2rem 1rem;
+    }
+}

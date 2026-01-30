@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro: Presentación de Obras - Mosquera</title>
+    <link rel="icon" href="favicon_obras.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container-flex">
+        <form class="card-industrial registro-form" id="registroForm">
+            <img src="icono-obras.png" alt="Logo Obras Mosquera" class="icono-evento-img" />
+
+            <h1 class="titulo-principal">SOMOS OBRAS MOSQUERA</h1>
+            <p class="subtitulo-evento">Presentación y firma de convenios de infraestructura</p>
+            <div class="detalles-evento">
+                <p>📅 Viernes 30 de Enero | 🕒 4:00 p.m.</p>
+                <p>📍 Auditorio Municipal (Centro Cultural)</p>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" id="nombres" name="nombres" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" id="apellidos" name="apellidos" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo_documento">Tipo de documento</label>
+                    <select id="tipo_documento" name="tipo_documento" required>
+                        <option value="CC">Cédula de Ciudadanía (CC)</option>
+                        <option value="CE">Cédula de Extranjería (CE)</option>
+                        <option value="NIT">NIT (Entidades)</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="numero_documento">Número de documento</label>
+                    <input type="number" id="numero_documento" name="numero_documento" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono de contacto</label>
+                    <input type="tel" id="telefono" name="telefono" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="correo_electronico">Correo Electrónico</label>
+                    <input type="email" id="correo_electronico" name="correo_electronico" required />
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="tipo_origen">¿A quién representa?</label>
+                    <select id="tipo_origen" name="tipo_origen" required>
+                        <option value="">Seleccione una opción...</option>
+                        <option value="JAC">Junta de Acción Comunal (JAC)</option>
+                        <option value="PH">Propiedad Horizontal (PH)</option>
+                        <option value="Ciudadano">Ciudadanía en General / Otro</option>
+                    </select>
+                </div>
+
+                <div id="grupo-jac" class="form-group full-width" style="display: none;">
+                    <label for="seleccion_jac">Seleccione su Barrio / JAC</label>
+                    <select id="seleccion_jac" name="seleccion_jac">
+                        <option value="">Buscar en la lista...</option>
+                    </select>
+                </div>
+
+                <div id="grupo-ph" class="form-group full-width" style="display: none;">
+                    <label for="seleccion_ph">Seleccione su Copropiedad (PH)</label>
+                    <select id="seleccion_ph" name="seleccion_ph">
+                        <option value="">Buscar en la lista...</option>
+                    </select>
+                </div>
+
+                <div id="grupo-otro" class="form-group full-width" style="display: none;">
+                    <label for="otro_origen">Especifique (Barrio, Entidad o Cargo)</label>
+                    <input type="text" id="otro_origen" name="otro_origen"
+                        placeholder="Ej: Veeduría, Concejo, Barrio específico..." />
+                </div>
+
+                <div class="form-group full-width checkbox-group terms-group">
+                    <input type="checkbox" id="acepta_terminos" name="acepta_terminos" required />
+                    <label for="acepta_terminos" class="terms-label">
+                        Acepto el tratamiento de datos personales para el registro a este evento institucional.
+                        <a href="https://mosqueracundinamarca.micolombiadigital.gov.co/sites/mosqueracundinamarca/content/files/001850/92459_polpi06--politica-de-tratamiento-de-datos-v1-2.pdf"
+                            target="_blank">Ver política.</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-industrial full-width">Confirmar Asistencia</button>
+            </div>
+        </form>
+    </div>
+
+    <footer class="footer-tic">
+        <div class="footer-content">
+            <img src="LOGOTIC.PNG" alt="Logo Dirección TIC" class="tic-logo-img">
+            <div class="tic-info-container">
+                <p class="tic-dept">Dirección de TIC</p>
+                <p class="dev-name">Wilson David Saa Aldana</p>
+                <div class="badge-container">
+                    <span class="cps-badge">CPS-049-2026</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
