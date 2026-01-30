@@ -12,9 +12,7 @@
     --glow-amarillo: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
-/* =========================================
-   ESTILOS BASE (Móvil First / General)
-   ========================================= */
+/* --- Estilos Generales --- */
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -22,229 +20,170 @@ body {
     background-image: radial-gradient(circle at center, #2c2c2c 0%, #111111 100%);
     color: var(--color-texto-blanco);
     
-    /* Por defecto: Scroll normal permitido */
-    min-height: 100vh;
+    /* Configuración Pantalla Completa PC */
+    height: 100vh; 
+    width: 100vw;
+    overflow: hidden; 
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
 }
+
+body.qr-mode { height: auto; min-height: 100vh; }
 
 .container-flex {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1; 
-    padding: 30px 20px;
+    flex: 1;
+    padding: 10px;
     box-sizing: border-box;
     position: relative;
     z-index: 10;
 }
 
-/* Tarjeta General */
+/* --- Tarjeta Principal --- */
 .card-industrial {
     background-color: var(--color-fondo-tarjeta);
     border-radius: 12px;
-    padding: 2.5rem;
+    padding: 2rem;
     width: 100%;
     max-width: 800px;
-    text-align: center;
     position: relative;
     border: 2px solid var(--color-institucional-morado);
     box-shadow: var(--glow-morado);
     animation: fadeInUp 1s ease-out backwards;
     backdrop-filter: blur(10px);
     box-sizing: border-box;
-    margin: 20px 0; 
+    
+    /* ALINEACIÓN CENTRAL ESTRICTA */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente los hijos */
+    justify-content: center;
+    text-align: center; /* Asegura texto centrado */
 }
 
-/* Elementos Comunes */
-.icono-evento-img { width: 140px; height: auto; margin-bottom: 25px; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)); }
-.titulo-principal { font-family: 'Orbitron', sans-serif; color: var(--color-acento-amarillo); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 15px; text-shadow: var(--glow-amarillo); line-height: 1.1; }
-.subtitulo-evento { font-weight: 700; font-size: 1.2rem; color: var(--color-texto-blanco); margin-bottom: 10px; }
-.detalles-evento { color: var(--color-texto-gris-claro); font-size: 1rem; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 215, 0, 0.3); }
+/* --- AJUSTES DE IMAGEN (SOLUCIÓN LOGO DESFASADO) --- */
+.icono-evento-img {
+    display: block; /* Importante para que el margen auto funcione */
+    height: 8vh;
+    width: auto;
+    margin: 0 auto 1vh auto; /* 0 arriba, auto derecha, 1vh abajo, auto izquierda */
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
 
-/* Formulario & Botones */
-.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left; width: 100%; }
+.titulo-principal {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--color-acento-amarillo);
+    font-size: 4vh;
+    text-transform: uppercase;
+    margin-bottom: 0.5vh;
+    text-shadow: var(--glow-amarillo);
+    line-height: 1.1;
+    text-align: center;
+    width: 100%;
+}
+
+.subtitulo-evento {
+    font-weight: 700;
+    font-size: 2vh;
+    color: var(--color-texto-blanco);
+    margin-bottom: 2vh;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.detalles-evento {
+    color: var(--color-texto-gris-claro);
+    font-size: 1.8vh;
+    margin-top: 2vh;
+    padding-top: 1vh;
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
+    width: 100%;
+    text-align: center;
+}
+
+/* --- ESTILOS QR (PC) --- */
+.qr-card {
+    max-width: 900px;
+    padding: 1.5rem;
+    height: auto;
+    max-height: 85vh;
+}
+
+.qr-scanner-container {
+    position: relative;
+    height: 35vh; width: 35vh; 
+    margin: 0 auto; /* Centrado extra */
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    border: 3px solid var(--color-institucional-morado);
+    box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
+    overflow: hidden;
+}
+
+#noise-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+.scan-mask { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 2; transform-origin: bottom; transform: scaleY(0); }
+.laser-beam { position: absolute; left: 0; width: 100%; height: 4px; background: #0f0; box-shadow: 0 0 15px #0f0, 0 0 30px #0f0; z-index: 4; display: none; }
+.qr-image { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; z-index: 1; display: block; margin: 0 auto; }
+
+/* --- FOOTER --- */
+.footer-tic {
+    width: 100%;
+    padding: 1vh 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+    border-top: 1px solid rgba(122, 49, 138, 0.3);
+    z-index: 100;
+    position: relative;
+    flex-shrink: 0; 
+}
+.footer-content { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 15px; animation: fadeInUp 1.2s ease-out; }
+.tic-logo-img { height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)); }
+.tic-info-container { text-align: left; }
+.tic-dept { font-family: 'Orbitron', sans-serif; color: var(--color-texto-gris-claro); font-size: 0.8rem; letter-spacing: 1px; margin: 0; }
+.dev-name { font-family: 'Montserrat', sans-serif; color: var(--color-texto-blanco); font-weight: 700; margin: 0; font-size: 0.85rem; }
+.cps-badge { display: inline-block; background-color: rgba(122, 49, 138, 0.2); border: 1px solid var(--color-institucional-morado); color: var(--color-acento-amarillo); padding: 2px 8px; border-radius: 4px; font-family: 'Orbitron', sans-serif; font-size: 0.7rem; letter-spacing: 1px; margin-top: 2px; }
+
+/* --- FORMULARIO Y BOTONES --- */
+.form-grid { display: grid; gap: 20px; text-align: left; width: 100%; }
 .full-width { grid-column: 1 / -1; }
-.form-group label { display: block; color: var(--color-acento-amarillo); margin-bottom: 10px; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; }
-.form-group input, .form-group select { width: 100%; padding: 14px; border-radius: 6px; border: 2px solid rgba(122, 49, 138, 0.5); background: rgba(255,255,255,0.07); color: #fff; box-sizing: border-box; }
+.form-group label { display: block; color: var(--color-acento-amarillo); margin-bottom: 8px; font-weight: 700; font-family: 'Roboto Condensed', sans-serif; }
+.form-group input, .form-group select { width: 100%; padding: 12px; border-radius: 6px; border: 2px solid rgba(122, 49, 138, 0.5); background: rgba(255,255,255,0.07); color: #fff; box-sizing: border-box; }
 .form-group select option { background: #333; color: #fff; }
 input:focus, select:focus { outline: none !important; border-color: var(--color-acento-amarillo) !important; background-color: rgba(255, 215, 0, 0.05); box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
 
-.btn-industrial { display: flex; justify-content: center; align-items: center; width: 100%; padding: 18px; margin-top: 10px; border: none; border-radius: 50px; background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0); color: #fff; font-family: 'Orbitron'; font-size: 1.2rem; font-weight: bold; text-decoration: none; cursor: pointer; transition: 0.4s; box-shadow: 0 5px 20px rgba(122, 49, 138, 0.6); box-sizing: border-box; }
+/* --- BOTÓN CORREGIDO (Centrado de Texto) --- */
+.btn-industrial {
+    display: flex; /* Flexbox es clave */
+    justify-content: center; /* Centra horizontal */
+    align-items: center; /* Centra vertical */
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--color-institucional-morado), #9c27b0);
+    color: var(--color-texto-blanco);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 20px rgba(122, 49, 138, 0.6);
+    text-decoration: none;
+    box-sizing: border-box;
+    text-align: center; /* Respaldo */
+}
 .btn-industrial:hover { background: linear-gradient(135deg, var(--color-acento-amarillo), #ffd700); color: #222; transform: translateY(-4px); box-shadow: 0 10px 30px rgba(255, 215, 0, 0.7); }
-.checkbox-group { display: flex; align-items: center; gap: 12px; background: rgba(122, 49, 138, 0.1); padding: 15px; border-radius: 6px; }
+
+.checkbox-group { display: flex; align-items: center; gap: 10px; background: rgba(122,49,138,0.1); padding: 10px; border-radius: 6px; }
 .checkbox-group input { width: 20px; height: 20px; accent-color: var(--color-acento-amarillo); flex-shrink: 0; }
 .terms-label a { color: var(--color-acento-amarillo); }
 
-/* Footer Estándar (Móvil y Normal) */
-.footer-tic { width: 100%; padding: 2rem 1rem; margin-top: auto; text-align: center; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); border-top: 1px solid rgba(122, 49, 138, 0.3); z-index: 10; }
-.footer-tic::before { content: ''; position: absolute; top: 0; left: -50%; width: 50%; height: 2px; background: linear-gradient(90deg, transparent, var(--color-acento-amarillo), transparent); animation: scanline 6s infinite ease-in-out; opacity: 0.8; }
-.footer-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; animation: fadeInUp 1.2s ease-out; }
-.tic-logo-img { height: 60px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)); }
-.tic-dept { font-family: 'Orbitron', sans-serif; color: var(--color-texto-gris-claro); font-size: 0.9rem; letter-spacing: 1px; margin: 0; }
-.dev-name { font-family: 'Montserrat', sans-serif; color: var(--color-texto-blanco); font-weight: 700; margin: 0; font-size: 1rem; }
-.cps-badge { display: inline-block; background: rgba(122, 49, 138, 0.2); border: 1px solid var(--color-institucional-morado); color: var(--color-acento-amarillo); padding: 4px 12px; border-radius: 4px; font-family: 'Orbitron'; font-size: 0.75rem; letter-spacing: 1.5px; margin-top: 5px; }
-
-
-/* =========================================================
-   MODO ESPECIAL QR (SOLO PARA PC / PANTALLAS GRANDES)
-   Estas reglas sobrescriben el comportamiento normal
-   ========================================================= */
-
-/* Solo aplicamos modo "Pantalla Fija" si el ancho es mayor a 768px (PC/Tablet Landscape) */
-@media screen and (min-width: 769px) {
-    
-    body.qr-mode {
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden; /* Fijo sin scroll */
-        justify-content: space-between;
-    }
-
-    /* Contenedor central expandido */
-    body.qr-mode .container-flex {
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-    }
-
-    /* Tarjeta QR escalable */
-    body.qr-mode .qr-card {
-        height: auto;
-        width: auto;
-        /* Usamos 'vmin' para que dependa del lado más pequeño de la pantalla (evita cortes) */
-        max-width: 80vmin; 
-        max-height: 80vh;
-        padding: 2vh 4vw;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* Textos Dinámicos */
-    body.qr-mode .icono-evento-img { height: 7vh; width: auto; margin-bottom: 1vh; }
-    body.qr-mode .titulo-principal { font-size: 4vh; margin-bottom: 0; }
-    body.qr-mode .subtitulo-evento { font-size: 2vh; margin-bottom: 2vh; }
-    body.qr-mode .detalles-evento { margin-top: 2vh; padding-top: 1vh; font-size: 1.8vh; }
-    body.qr-mode .loading-dots { font-size: 1.5vh !important; }
-
-    /* CONTENEDOR QR (Cuadrado Seguro) */
-    body.qr-mode .qr-scanner-container {
-        /* Usamos 35vh para que sea proporcional a la altura */
-        height: 35vh; 
-        width: 35vh; 
-        margin: 0 auto;
-        padding: 10px;
-        position: relative;
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 12px;
-        border: 3px solid var(--color-institucional-morado);
-        box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
-        overflow: hidden;
-    }
-
-    /* FOOTER PC (Firma Centrada) */
-    body.qr-mode .footer-tic {
-        flex-shrink: 0;
-        padding: 1vh 1rem;
-        position: relative;
-        background: rgba(0,0,0,0.8);
-    }
-    body.qr-mode .footer-content { 
-        flex-direction: row; 
-        gap: 30px; 
-        justify-content: center; /* ESTO CENTRA LA FIRMA HORIZONTALMENTE */
-        width: 100%;
-    }
-    body.qr-mode .tic-logo-img { height: 4vh; width: auto; }
-    body.qr-mode .tic-info-container { text-align: left; }
-    body.qr-mode .tic-dept { font-size: 1.4vh; }
-    body.qr-mode .dev-name { font-size: 1.5vh; }
-}
-
-/* =========================================
-   ESTILOS MÓVIL (Celulares y Tablets Verticales)
-   Aquí forzamos el comportamiento normal, anulando .qr-mode
-   ========================================= */
-@media screen and (max-width: 768px) {
-    
-    /* Restaurar body a normalidad absoluta */
-    body.qr-mode { 
-        height: auto !important; 
-        overflow-y: auto !important; 
-        display: flex !important;
-        justify-content: flex-start !important;
-    }
-    
-    .container-flex { padding: 30px 15px; }
-    
-    /* Tarjeta QR Normal */
-    .qr-card {
-        width: 100%; 
-        max-width: 100%;
-        height: auto;
-        padding: 2rem 1rem;
-        margin: 20px 0;
-    }
-    
-    /* Restaurar tamaños fijos (Legibilidad Móvil) */
-    .icono-evento-img { width: 100px; height: auto; }
-    .titulo-principal { font-size: 1.8rem; }
-    .subtitulo-evento { font-size: 1rem; }
-    .detalles-evento { font-size: 0.9rem; margin-top: 15px; }
-    .loading-dots { font-size: 0.8rem !important; }
-    
-    /* QR Tamaño Fijo Cómodo */
-    .qr-scanner-container { 
-        width: 260px; 
-        height: 260px; 
-        margin: 20px auto; 
-        /* Importante: restaurar estilos base aquí por si acaso */
-        position: relative;
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 12px;
-        border: 3px solid var(--color-institucional-morado);
-        box-shadow: var(--glow-morado), inset 0 0 30px rgba(122, 49, 138, 0.4);
-        overflow: hidden;
-    }
-    
-    /* Footer Móvil */
-    .footer-tic { position: relative; padding: 2rem 1rem; }
-    .footer-content { flex-direction: column; gap: 10px; }
-    .tic-logo-img { height: 60px; }
-    .tic-dept, .dev-name { font-size: 0.9rem; }
-    .tic-info-container { text-align: center; }
-}
-
-
-/* =========================================
-   ANIMACIONES (Canvas, Láser, Polígonos)
-   ========================================= */
-/* Lienzo de ruido */
-#noise-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-
-/* Máscara Negra */
-.scan-mask { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 2; transform-origin: bottom; transform: scaleY(0); }
-
-/* Láser */
-.laser-beam { position: absolute; left: 0; width: 100%; height: 3px; background: var(--color-acento-amarillo); box-shadow: 0 0 15px var(--color-acento-amarillo); z-index: 4; display: none; }
-
-/* Imagen QR */
-.qr-image { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; z-index: 1; display: block; }
-
-/* Animación Contracción (Opcional si usas el JS de ruido) */
-.qr-contracting { animation: contract-generate 2.5s ease-in-out forwards; }
-@keyframes contract-generate {
-    0% { transform: scale(1); filter: brightness(1); opacity: 1; }
-    20% { transform: scaleY(0.01) scaleX(1.1); filter: brightness(3) drop-shadow(0 0 20px var(--color-acento-amarillo)); opacity: 0.8; }
-    40% { transform: scale(0); opacity: 0; }
-    60% { transform: scaleX(0.01) scaleY(1.1); filter: brightness(3) drop-shadow(0 0 20px var(--color-institucional-morado)); opacity: 0.8; }
-    100% { transform: scale(1); filter: brightness(1); opacity: 1; }
-}
+/* --- Exito Styles --- */
+.titulo-exito { color: #4cd137; text-shadow: 0 0 15px rgba(76, 209, 55, 0.6); margin-bottom: 10px; font-size: 3rem; text-align: center; }
 
 /* Polígonos */
 #polygons-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
@@ -252,32 +191,25 @@ input:focus, select:focus { outline: none !important; border-color: var(--color-
 @keyframes floatAndRotate { 0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; } }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes scanline { 0% { left: -50%; opacity: 0; } 20% { opacity: 1; } 50% { left: 100%; opacity: 0; } 100% { left: 100%; opacity: 0; } }
-/* ... (Mantén todo el CSS anterior igual) ... */
 
-/* =========================================
-   AGREGAR ESTO AL FINAL DEL CSS
-   ========================================= */
-
-/* Estilo específico para el título verde de éxito */
-.titulo-exito {
-    color: #4cd137;
-    text-shadow: 0 0 15px rgba(76, 209, 55, 0.6);
-    margin-bottom: 10px;
-    /* En PC será grande */
-    font-size: 3rem; 
-}
-
-/* AJUSTE PARA CELULAR (Corrige que se mueva o se vea gigante) */
+/* =========================================================
+   MEDIA QUERIES: MÓVIL
+   ========================================================= */
 @media screen and (max-width: 768px) {
-    .titulo-exito {
-        font-size: 2.2rem; /* Tamaño controlado para móvil */
-        margin-top: 10px;
-    }
+    body { height: auto; min-height: 100vh; overflow-y: auto; }
+    .container-flex { padding: 30px 15px; }
+    .card-industrial, .qr-card { max-width: 100%; padding: 1.5rem; height: auto; max-height: none; }
     
-    .exito-card {
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+    /* Tamaños Fijos para Móvil */
+    .icono-evento-img { height: auto; width: 100px; margin: 0 auto 20px auto; }
+    .titulo-principal { font-size: 1.8rem; }
+    .subtitulo-evento { font-size: 1rem; }
+    .detalles-evento { font-size: 0.9rem; }
+    .titulo-exito { font-size: 2.2rem; margin-top: 10px; }
+    
+    .qr-scanner-container { height: 260px; width: 260px; }
+    
+    .footer-tic { position: relative; padding: 2rem 1rem; }
+    .footer-content { flex-direction: column; gap: 10px; }
+    .tic-info-container { text-align: center; }
 }
