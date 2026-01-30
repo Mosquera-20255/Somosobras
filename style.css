@@ -8,61 +8,29 @@
     --color-texto-blanco: #ffffff;
     --color-texto-gris-claro: #e0e0e0;
     --color-fondo-tarjeta: rgba(40, 40, 40, 0.95);
-
+    
     /* Efectos Glow */
     --glow-morado: 0 0 10px rgba(122, 49, 138, 0.7), 0 0 20px rgba(122, 49, 138, 0.5);
     --glow-amarillo: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
-/* --- Animaciones --- */
+/* --- Animaciones Generales --- */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 40px, 0);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: translate3d(0, 40px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes pulse-border-tech {
-    0% {
-        box-shadow: 0 0 0 0 rgba(122, 49, 138, 0.4), var(--glow-morado);
-        border-color: var(--color-institucional-morado);
-    }
-
-    50% {
-        box-shadow: 0 0 0 8px rgba(255, 215, 0, 0), 0 0 25px rgba(255, 215, 0, 0.6), 0 0 40px rgba(122, 49, 138, 0.4);
-        border-color: var(--color-acento-amarillo);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(122, 49, 138, 0.4), var(--glow-morado);
-        border-color: var(--color-institucional-morado);
-    }
+    0% { box-shadow: 0 0 0 0 rgba(122, 49, 138, 0.4), var(--glow-morado); border-color: var(--color-institucional-morado); }
+    50% { box-shadow: 0 0 0 8px rgba(255, 215, 0, 0), 0 0 25px rgba(255, 215, 0, 0.6), 0 0 40px rgba(122, 49, 138, 0.4); border-color: var(--color-acento-amarillo); }
+    100% { box-shadow: 0 0 0 0 rgba(122, 49, 138, 0.4), var(--glow-morado); border-color: var(--color-institucional-morado); }
 }
 
 @keyframes scanline {
-    0% {
-        left: -50%;
-        opacity: 0;
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    50% {
-        left: 100%;
-        opacity: 0;
-    }
-
-    100% {
-        left: 100%;
-        opacity: 0;
-    }
+    0% { left: -50%; opacity: 0; }
+    20% { opacity: 1; }
+    50% { left: 100%; opacity: 0; }
+    100% { left: 100%; opacity: 0; }
 }
 
 /* --- Estilos Generales --- */
@@ -76,7 +44,6 @@ body {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    /* Evitar scroll horizontal por animaciones */
 }
 
 .container-flex {
@@ -88,7 +55,6 @@ body {
     box-sizing: border-box;
     position: relative;
     z-index: 10;
-    /* Contenido por encima del fondo */
 }
 
 /* --- Tarjeta Principal --- */
@@ -113,10 +79,7 @@ body {
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
     transition: transform 0.3s ease;
 }
-
-.icono-evento-img:hover {
-    transform: scale(1.05);
-}
+.icono-evento-img:hover { transform: scale(1.05); }
 
 .titulo-principal {
     font-family: 'Orbitron', sans-serif;
@@ -149,10 +112,7 @@ body {
     gap: 25px;
     text-align: left;
 }
-
-.full-width {
-    grid-column: 1 / -1;
-}
+.full-width { grid-column: 1 / -1; }
 
 .form-group label {
     display: block;
@@ -162,8 +122,7 @@ body {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.form-group input,
-.form-group select {
+.form-group input, .form-group select {
     width: 100%;
     padding: 14px;
     border-radius: 6px;
@@ -175,13 +134,9 @@ body {
     box-sizing: border-box;
 }
 
-.form-group select option {
-    background: #333;
-    color: #fff;
-}
+.form-group select option { background: #333; color: #fff; }
 
-input:focus,
-select:focus {
+input:focus, select:focus {
     outline: none !important;
     border-color: var(--color-acento-amarillo) !important;
     background-color: rgba(255, 215, 0, 0.05);
@@ -204,6 +159,7 @@ select:focus {
     text-transform: uppercase;
     transition: all 0.4s ease;
     box-shadow: 0 5px 20px rgba(122, 49, 138, 0.6);
+    text-decoration: none; /* Asegura que no tenga subrayado */
 }
 
 .btn-industrial:hover {
@@ -215,24 +171,12 @@ select:focus {
 
 /* Checkbox */
 .checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
     background-color: rgba(122, 49, 138, 0.1);
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid rgba(122, 49, 138, 0.4);
+    padding: 15px; border-radius: 6px; border: 1px solid rgba(122, 49, 138, 0.4);
 }
-
-.checkbox-group input {
-    width: 20px;
-    height: 20px;
-    accent-color: var(--color-acento-amarillo);
-}
-
-.terms-label a {
-    color: var(--color-acento-amarillo);
-}
+.checkbox-group input { width: 20px; height: 20px; accent-color: var(--color-acento-amarillo); }
+.terms-label a { color: var(--color-acento-amarillo); }
 
 /* --- FIRMA / FOOTER TIC --- */
 .footer-tic {
@@ -241,7 +185,7 @@ select:focus {
     margin-top: auto;
     text-align: center;
     position: relative;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
     border-top: 1px solid rgba(122, 49, 138, 0.3);
     z-index: 10;
 }
@@ -249,10 +193,7 @@ select:focus {
 .footer-tic::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -50%;
-    width: 50%;
-    height: 2px;
+    top: 0; left: -50%; width: 50%; height: 2px;
     background: linear-gradient(90deg, transparent, var(--color-acento-amarillo), transparent);
     animation: scanline 6s infinite ease-in-out;
     opacity: 0.8;
@@ -274,17 +215,12 @@ select:focus {
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
     transition: all 0.3s ease;
 }
-
 .tic-logo-img:hover {
     filter: drop-shadow(0 0 12px var(--color-acento-amarillo));
     transform: scale(1.05);
 }
 
-.tic-info-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
+.tic-info-container { display: flex; flex-direction: column; gap: 5px; }
 
 .tic-dept {
     font-family: 'Orbitron', sans-serif;
@@ -316,7 +252,6 @@ select:focus {
     transition: all 0.3s ease;
     margin-top: 5px;
 }
-
 .cps-badge:hover {
     background-color: var(--color-institucional-morado);
     color: #fff;
@@ -324,71 +259,100 @@ select:focus {
 }
 
 /* =========================================
+   ESTILOS ESPECÍFICOS PARA LA PÁGINA QR
+   ========================================= */
+
+.qr-card { max-width: 500px; }
+
+.qr-scanner-container {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 30px auto;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    border: 3px solid var(--color-institucional-morado);
+    box-shadow: var(--glow-morado), inset 0 0 20px rgba(122, 49, 138, 0.3);
+    overflow: hidden;
+}
+
+.qr-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    filter: contrast(1.1) brightness(0.95);
+    transition: all 0.3s ease;
+}
+
+/* Animación Glitch */
+.qr-disassembling {
+    animation: cyber-glitch 0.8s infinite linear;
+    filter: hue-rotate(90deg) contrast(2) blur(1px);
+    opacity: 0.8;
+}
+
+@keyframes cyber-glitch {
+    0% { transform: translate(0) scale(1); clip-path: inset(0 0 0 0); }
+    20% { transform: translate(-5px, 5px) scale(1.02); clip-path: inset(10% 0 20% 0); }
+    40% { transform: translate(5px, -5px) scale(0.98); clip-path: inset(0 20% 0 10%); }
+    60% { transform: translate(-5px, 0) scale(1.05); clip-path: inset(30% 0 30% 0); }
+    80% { transform: translate(5px, 5px) scale(0.95); clip-path: inset(10% 20% 10% 20%); }
+    100% { transform: translate(0) scale(1); clip-path: inset(0 0 0 0); }
+}
+
+/* Línea Láser */
+.scan-line {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: var(--color-acento-amarillo);
+    box-shadow: 0 0 15px var(--color-acento-amarillo), 0 0 30px var(--color-acento-amarillo);
+    opacity: 0.7;
+    animation: scanner-move 3s ease-in-out infinite;
+    z-index: 5;
+}
+
+@keyframes scanner-move {
+    0%, 100% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    50% { top: 100%; }
+    90% { opacity: 1; }
+}
+
+
+/* =========================================
    FONDO DE POLÍGONOS TECH
    ========================================= */
 
 #polygons-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     overflow: hidden;
-    z-index: 0;
-    /* Detrás del contenido */
+    z-index: 0; 
     pointer-events: none;
 }
 
 .polygon-shape {
     position: absolute;
     bottom: -100px;
-    /* Inician debajo de la pantalla */
     background: rgba(255, 255, 255, 0.03);
-    /* Relleno muy sutil */
     border: 1px solid rgba(255, 255, 255, 0.15);
-    /* Borde sutil */
     animation: floatAndRotate linear infinite;
     backdrop-filter: blur(1px);
 }
 
-/* Animación de flotación y rotación 3D */
 @keyframes floatAndRotate {
-    0% {
-        transform: translateY(0) rotate(0deg) scale(0.8);
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 0.6;
-    }
-
-    /* Aparecen */
-    90% {
-        opacity: 0.6;
-    }
-
-    100% {
-        transform: translateY(-120vh) rotate(360deg) scale(1.2);
-        /* Suben y rotan */
-        opacity: 0;
-    }
+    0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; }
 }
 
 /* Responsive */
 @media screen and (max-width: 768px) {
-    .titulo-principal {
-        font-size: 1.8rem;
-    }
-
-    .card-industrial {
-        padding: 1.5rem;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-tic {
-        padding: 2rem 1rem;
-    }
+    .titulo-principal { font-size: 1.8rem; }
+    .card-industrial { padding: 1.5rem; }
+    .form-grid { grid-template-columns: 1fr; }
+    .footer-tic { padding: 2rem 1rem; }
 }
