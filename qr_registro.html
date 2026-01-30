@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escanear QR - Obras Mosquera</title>
+    <title>Escanear QR - Pantalla Principal</title>
     <link rel="icon" href="favicon_obras.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,29 +11,31 @@
     
     <div class="container-flex">
         <div class="card-industrial qr-card">
-            <img src="icono-obras.png" alt="Logo Obras" class="icono-evento-img" style="width: 100px;">
+            <img src="icono-obras.png" alt="Logo Obras" class="icono-evento-img" style="width: 120px;">
             
-            <h1 class="titulo-principal" style="font-size: 2rem; margin-bottom: 10px;">REGÍSTRATE AQUÍ</h1>
-            <p class="subtitulo-evento">Escanea el código para acceder al formulario</p>
+            <h1 class="titulo-principal" style="font-size: 2.5rem; margin-bottom: 5px;">MOSQUERA CONECTA</h1>
+            <p class="subtitulo-evento" style="color: var(--color-acento-amarillo); letter-spacing: 2px;">CAMPO DE GIGANTES</p>
             
             <div class="qr-scanner-container">
                 <div class="scan-line"></div>
-                
                 <img id="qr-target" 
-                     src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=000000&bgcolor=FFFFFF&data=https://mosquera-20255.github.io/Somosobras/index.html" 
+                     src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&color=000000&bgcolor=FFFFFF&data=https://mosquera-20255.github.io/Somosobras/index.html" 
                      alt="Código QR de Registro" 
                      class="qr-image">
             </div>
 
             <div class="detalles-evento" style="border-bottom: none; margin-top: 20px;">
-                <p style="color: var(--color-acento-amarillo); font-weight: bold; letter-spacing: 1px;">
-                    PUNTO DE ACCESO DIGITAL
+                <p style="font-size: 1.2rem; margin-bottom: 10px;">¡Escanea y Regístrate!</p>
+                <p style="font-size: 0.9rem; color: var(--color-texto-blanco); opacity: 0.8;">
+                    Presentación y Firma de Convenios de Infraestructura
                 </p>
-                <p style="font-size: 0.9rem; opacity: 0.7;">El código se actualiza automáticamente.</p>
+                <p style="margin-top: 15px; font-size: 0.8rem; color: var(--color-acento-amarillo);">
+                    <span style="display:inline-block; width: 8px; height: 8px; background: red; border-radius: 50%; margin-right: 5px; box-shadow: 0 0 5px red;"></span>
+                    CÓDIGO DINÁMICO ACTIVO
+                </p>
             </div>
-
-            <a href="index.html" class="btn-industrial" style="margin-top: 10px; padding: 12px; font-size: 1rem;">Ir al Inicio</a>
-        </div>
+            
+            </div>
     </div>
 
     <footer class="footer-tic">
