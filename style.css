@@ -111,6 +111,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
     text-align: left;
+    width: 100%; /* Asegura ancho completo */
 }
 .full-width { grid-column: 1 / -1; }
 
@@ -143,7 +144,9 @@ input:focus, select:focus {
 
 /* --- Botón Responsive --- */
 .btn-industrial {
-    display: block;
+    display: flex; /* Flexbox para centrar contenido */
+    justify-content: center;
+    align-items: center;
     width: 100%;
     padding: 18px;
     margin-top: 10px;
@@ -229,48 +232,29 @@ input:focus, select:focus {
 .qr-image {
     width: 100%; height: 100%; object-fit: contain;
     border-radius: 8px; 
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); /* Brillo suave constante */
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
     transition: all 0.3s ease;
 }
 
-/* --- NUEVA ANIMACIÓN: CONTRACT & GENERATE --- */
-/* Esta clase se activa con JS cada minuto */
+/* --- ANIMACIÓN: CONTRACT & GENERATE --- */
 .qr-contracting {
-    animation: contract-generate 2s ease-in-out forwards;
+    animation: contract-generate 2.5s ease-in-out forwards;
 }
 
 @keyframes contract-generate {
-    0% {
-        transform: scale(1);
-        filter: brightness(1);
-        opacity: 1;
+    0% { transform: scale(1); filter: brightness(1); opacity: 1; }
+    20% { 
+        transform: scaleY(0.01) scaleX(1.1); 
+        filter: brightness(3) drop-shadow(0 0 20px var(--color-acento-amarillo)); opacity: 0.8; 
     }
-    30% {
-        /* Se comprime en una línea horizontal brillante */
-        transform: scaleY(0.01) scaleX(1.1);
-        filter: brightness(3) drop-shadow(0 0 20px var(--color-acento-amarillo));
-        opacity: 0.8;
+    40% { transform: scale(0); opacity: 0; }
+    60% { 
+        transform: scaleX(0.01) scaleY(1.1); 
+        filter: brightness(3) drop-shadow(0 0 20px var(--color-institucional-morado)); opacity: 0.8; 
     }
-    50% {
-        /* Desaparece un momento (como si se apagara) */
-        transform: scale(0);
-        opacity: 0;
-    }
-    60% {
-        /* Reaparece como línea vertical delgada */
-        transform: scaleX(0.01) scaleY(1.1);
-        filter: brightness(3) drop-shadow(0 0 20px var(--color-institucional-morado));
-        opacity: 0.8;
-    }
-    100% {
-        /* Se expande a tamaño normal */
-        transform: scale(1);
-        filter: brightness(1);
-        opacity: 1;
-    }
+    100% { transform: scale(1); filter: brightness(1); opacity: 1; }
 }
 
-/* Línea Láser constante (arriba-abajo) */
 .scan-line {
     position: absolute; top: 0; left: 0; width: 100%; height: 3px;
     background: var(--color-acento-amarillo);
@@ -304,4 +288,5 @@ input:focus, select:focus {
     .card-industrial { padding: 1.5rem; }
     .qr-card { padding: 1.5rem; width: 100%; } 
     .qr-scanner-container { width: 260px; height: 260px; }
+    .form-grid { grid-template-columns: 1fr; } /* Asegura columna única en móvil */
 }
