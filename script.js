@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. FONDO DE POLÍGONOS
+    // 1. FONDO DE POLÍGONOS (Sin cambios, funciona perfecto)
     const createPolygons = () => {
         const containerId = 'polygons-container';
         let polygonContainer = document.getElementById(containerId);
@@ -11,12 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const polygonCount = 20; 
         const colors = ['rgba(122, 49, 138, 0.4)', 'rgba(255, 215, 0, 0.4)', 'rgba(255, 255, 255, 0.2)'];
-        const shapes = [
-            'polygon(50% 0%, 100% 100%, 0% 100%)', 
-            'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)', 
-            'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)', 
-            'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'
-        ];
+        const shapes = ['polygon(50% 0%, 100% 100%, 0% 100%)', 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)', 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'];
+        
         for (let i = 0; i < polygonCount; i++) {
             const polygon = document.createElement('div');
             polygon.classList.add('polygon-shape');
@@ -27,10 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const duration = Math.random() * 20 + 15;
             const delay = Math.random() * 20;
             
-            polygon.style.width = `${size}px`;
-            polygon.style.height = `${size}px`;
-            polygon.style.left = `${left}%`;
-            polygon.style.borderColor = color;
+            polygon.style.width = `${size}px`; polygon.style.height = `${size}px`;
+            polygon.style.left = `${left}%`; polygon.style.borderColor = color;
             polygon.style.clipPath = shape;
             if (Math.random() > 0.5) polygon.style.background = color;
             polygon.style.animationDuration = `${duration}s`;
@@ -40,43 +34,107 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     createPolygons();
 
-    // 2. ANIMACIÓN DEL QR (CONTRACCIÓN Y GENERACIÓN)
+    // =========================================================
+    // 2. NUEVA ANIMACIÓN DE RECONSTRUCCIÓN LÁSER (QR)
+    // =========================================================
     const qrImageElement = document.getElementById('qr-target');
-    const loadingDots = document.querySelector('.loading-dots');
+    const noiseCanvas = document.getElementById('noise-canvas');
+    const scanMask = document.getElementById('scan-mask');
+    const laserBeam = document.getElementById('laser-beam');
+    const statusText = document.getElementById('status-text');
+    const statusDot = document.getElementById('status-dot');
 
-    if (qrImageElement) {
-        const runQRUpdateEffect = () => {
-            // Activar clase CSS de animación
-            qrImageElement.classList.add('qr-contracting');
-            
-            // Simular actualización texto
-            if(loadingDots) {
-                loadingDots.textContent = "GENERANDO NUEVO CÓDIGO...";
-                loadingDots.style.opacity = '1';
-                loadingDots.style.color = 'var(--color-institucional-morado)';
-            }
+    if (qrImageElement && noiseCanvas && scanMask && laserBeam) {
+        
+        const ctx = noiseCanvas.getContext('2d');
+        let noiseInterval;
 
-            // Esperar fin de animación (2.5s)
-            setTimeout(() => {
-                qrImageElement.classList.remove('qr-contracting');
-                
-                if(loadingDots) {
-                    loadingDots.textContent = "CÓDIGO DINÁMICO ACTIVO";
-                    loadingDots.style.opacity = '0.8';
-                    loadingDots.style.color = 'var(--color-acento-amarillo)';
+        // Función para generar ruido digital (Nieve de TV)
+        const generateNoise = () => {
+            const w = noiseCanvas.width = noiseCanvas.offsetWidth;
+            const h = noiseCanvas.height = noiseCanvas.offsetHeight;
+            const idata = ctx.createImageData(w, h);
+            const buffer32 = new Uint32Array(idata.data.buffer);
+            const len = buffer32.length;
+
+            noiseInterval = setInterval(() => {
+                for (let i = 0; i < len; i++) {
+                    if (Math.random() < 0.5) {
+                        buffer32[i] = 0xff000000; // Negro
+                    } else {
+                        buffer32[i] = 0xffffffff; // Blanco (o verde matrix si prefieres)
+                    }
                 }
-            }, 2500); 
+                ctx.putImageData(idata, 0, 0);
+            }, 50);
+        };
+
+        const stopNoise = () => {
+            clearInterval(noiseInterval);
+            ctx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);
+        };
+
+        const runLaserPrintEffect = () => {
+            // FASE 1: DESTRUCCIÓN (RUIDO)
+            statusText.textContent = "ACTUALIZANDO CÓDIGO...";
+            statusText.style.color = "red";
+            statusDot.style.background = "red";
+            
+            noiseCanvas.style.opacity = "1";
+            generateNoise();
+
+            // FASE 2: BORRADO TOTAL (Pantalla negra baja)
+            setTimeout(() => {
+                scanMask.style.transition = "transform 0.5s ease-in";
+                scanMask.style.transform = "scaleY(1)"; // Baja la cortina negra
+            }, 1000);
+
+            // FASE 3: PREPARAR IMPRESIÓN
+            setTimeout(() => {
+                stopNoise(); // Quitamos el ruido (ya está tapado por la máscara negra)
+                noiseCanvas.style.opacity = "0"; 
+                
+                // Activar láser
+                laserBeam.style.display = "block";
+                laserBeam.style.top = "0%";
+                
+                statusText.textContent = "GENERANDO...";
+                statusText.style.color = "#FFD700"; // Amarillo
+                statusDot.style.background = "#FFD700";
+            }, 1600);
+
+            // FASE 4: IMPRESIÓN LÁSER (Sube la cortina revelando el QR)
+            setTimeout(() => {
+                // Animamos el láser bajando
+                laserBeam.style.transition = "top 2s linear";
+                laserBeam.style.top = "100%";
+                
+                // La máscara se va revelando al ritmo del láser
+                scanMask.style.transition = "transform 2s linear";
+                scanMask.style.transform = "scaleY(0)"; // Sube la cortina
+            }, 1800);
+
+            // FASE 5: FINALIZAR
+            setTimeout(() => {
+                laserBeam.style.display = "none";
+                statusText.textContent = "SISTEMA ACTIVO";
+                statusText.style.color = "#4cd137"; // Verde
+                statusDot.style.background = "#4cd137";
+                statusDot.style.boxShadow = "0 0 10px #4cd137";
+            }, 3800);
         };
 
         // Ejecutar cada 60 segundos
-        setInterval(runQRUpdateEffect, 60000);
-        // Primera ejecución de prueba
-        setTimeout(runQRUpdateEffect, 3000);
+        setInterval(runLaserPrintEffect, 60000);
+        
+        // Ejecutar al cargar para probar
+        setTimeout(runLaserPrintEffect, 2000);
     }
 
-    // 3. LÓGICA DEL FORMULARIO
+    // 3. LÓGICA DEL FORMULARIO (Se mantiene igual)
     const form = document.getElementById('registroForm');
     if (form) {
+        // ... (Tu código de formulario existente va aquí, copia y pega lo que tenías antes) ...
         const tipoOrigenSelect = document.getElementById('tipo_origen');
         const grupoJac = document.getElementById('grupo-jac');
         const selectJac = document.getElementById('seleccion_jac');
